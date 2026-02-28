@@ -1,4 +1,4 @@
-import { Table } from "antd";
+import { notification, Table } from "antd";
 import { getUsersApi } from "../util/api";
 import { useEffect, useState } from "react";
 
@@ -24,8 +24,13 @@ const UserPage = () => {
         const fetchData = async () => {
             const res = await getUsersApi();
             console.log('res:', res);
-            if (res) {
+            if (!res?.message) {
                 setDataSource(res);
+            }else{
+                notification.error({
+                    message: 'Lỗi',
+                    description: res?.message || 'Có lỗi xảy ra khi lấy danh sách người dùng',
+                });
             }
         }
         fetchData()

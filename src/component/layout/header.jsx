@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navifate = useNavigate();
     const items = [
         {
             label: <Link to="/">home page</Link>,
@@ -21,11 +22,14 @@ const Header = () => {
             icon: <SettingOutlined />,
             children: [
                 {
-                    label: 'đăng nhập',
+                     label: <Link to="/login">login </Link>,
                     key: 'login',
                 },
                 {
-                    label: 'đăng xuất',
+                    label: <span onClick={()=>{
+                        localStorage.clear("token");
+                        navifate("/")
+                    }}>logout</span>,
                     key: 'logout',
                 },
             ],
