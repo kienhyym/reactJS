@@ -5,10 +5,11 @@ import './style/global.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import RegisterPage from './pages/register.jsx'
 import UserPage from './pages/user.jsx'
-import HomePage from './pages/home.jsx'
+import HomePage from './pages/Home/HomePage.jsx'
 import LoginPage from './pages/login.jsx'
 import { AuthWrapper } from './component/context/authContext.jsx'
 import QuizPage from './pages/QuizPage/QuizPage.jsx'
+import QuestionListPage from './pages/QuestionListPage/QuestionListPage.jsx'
 import LessonList from './pages/LessonList/LessonList.jsx'
 import LessonDetail from './pages/LessonDetail/LessonDetail.jsx'
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       },
       {
         path: 'quiz',
+        element: <QuestionListPage />
+      },
+      {
+        path: 'quiz/:lessonId',
         element: <QuizPage />
       },
       {

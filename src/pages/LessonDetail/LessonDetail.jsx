@@ -1,46 +1,77 @@
-import React, { useState } from "react";
+import React from "react";
 import "./LessonDetail.css";
-import { useParams } from "react-router-dom";
-
-const lessons = [
-    { id: 1, title: "Giới thiệu ReactJS" },
-    { id: 2, title: "JSX và Component" },
-    { id: 3, title: "State và Props" },
-    { id: 4, title: "React Hooks" },
-];
+import { useParams, useNavigate } from "react-router-dom";
+import lessons from "../../data/LessonListdata";
+import { useEffect } from "react";
 
 const LessonDetail = () => {
-    const [currentLesson, setCurrentLesson] = useState(lessons[0]);
     const { id } = useParams();
-    const lesson = lessons.find((l) => l.id === Number(id));
+    const navigate = useNavigate();
 
+    const currentId = Number(id);
+    const lessonIndex = lessons.findIndex((l) => l.id === currentId);
+    const lesson = lessons[lessonIndex];
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth", // có thể bỏ smooth nếu không thích animation
+        });
+    }, [id]);
     if (!lesson) {
         return <h2 style={{ padding: 40 }}>Không tìm thấy bài học</h2>;
     }
+
+    const handlePrev = () => {
+        if (lessonIndex > 0) {
+            navigate(`/lessons/${lessons[lessonIndex - 1].id}`);
+        }
+    };
+
+    const handleNext = () => {
+        if (lessonIndex < lessons.length - 1) {
+            navigate(`/lessons/${lessons[lessonIndex + 1].id}`);
+        }
+    };
 
     return (
         <div className="lesson-detail-container">
 
             {/* Main Content */}
             <div className="lesson-main">
-                <div className="video-wrapper">
-                    <iframe
-                        src="https://www.youtube.com/embed/cbzxdGT7TO4?si=yGKLKE1JnBhgG9qd"
-                        title="Video bài giảng"
-                        allowFullScreen
-                    />
-                </div>
+                <h2 className="lesson-title">{lesson.title}</h2>
+
+                {lesson.videoUrl.map((video, i) => (
+                    <div className="video-wrapper" key={i}>
+                        <span style={{ paddingLeft: 10, display: "block" }}>
+                            {video.title}
+                        </span>
+                        <video width="100%" height="500" controls key={`${lesson.id}-${i}`}>
+                            <source src={video.url} type="video/mp4" />
+                            Trình duyệt không hỗ trợ video.
+                        </video>
+                    </div>
+                ))}
 
                 <div className="lesson-info">
-                    <h2>{lesson.title}</h2>
-                    <p>
-                        Đây là nội dung bài giảng giúp bạn hiểu rõ kiến thức nền tảng
-                        trước khi đi vào các phần nâng cao.
-                    </p>
+                    <p>Đây là nội dung bài giảng</p>
 
                     <div className="lesson-navigation">
-                        <button className="nav-btn">⬅ Bài trước</button>
-                        <button className="nav-btn primary">Bài tiếp theo ➡</button>
+                        <button
+                            className="nav-btn"
+                            onClick={handlePrev}
+                            disabled={lessonIndex === 0}
+                        >
+                            ⬅ Bài trước
+                        </button>
+
+                        <button
+                            className="nav-btn primary"
+                            onClick={handleNext}
+                            disabled={lessonIndex === lessons.length - 1}
+                            style={lessonIndex === lessons.length - 1 ? { background: "#ccc", cursor: "not-allowed" } : {}}
+                        >
+                            Bài tiếp theo ➡
+                        </button>
                     </div>
                 </div>
             </div>
@@ -48,14 +79,14 @@ const LessonDetail = () => {
             {/* Sidebar */}
             <div className="lesson-sidebar">
                 <h3>📚 Danh sách bài học</h3>
-                {lessons.map((lesson) => (
+                {lessons.map((item) => (
                     <div
-                        key={lesson.id}
-                        className={`sidebar-item ${currentLesson.id === lesson.id ? "active" : ""
+                        key={item.id}
+                        className={`sidebar-item ${item.id === currentId ? "active" : ""
                             }`}
-                        onClick={() => setCurrentLesson(lesson)}
+                        onClick={() => navigate(`/lessons/${item.id}`)}
                     >
-                        {lesson.title}
+                        {item.title}
                     </div>
                 ))}
             </div>
