@@ -12,7 +12,8 @@ import QuizPage from './pages/QuizPage/QuizPage.jsx'
 import QuestionListPage from './pages/QuestionListPage/QuestionListPage.jsx'
 import LessonList from './pages/LessonList/LessonList.jsx'
 import LessonDetail from './pages/LessonDetail/LessonDetail.jsx'
-import QuizCoverPage from './pages/QuizCoverPage/QuizCoverPage.jsx'
+import KnowledgePage from './pages/Knowledge/KnowledgePage.jsx'
+import ExtendPage from './pages/ExtendPage/ExtendPage.jsx'
 
 
 const router = createBrowserRouter([
@@ -44,12 +45,19 @@ const router = createBrowserRouter([
         path: 'lessons/:id',   // ✅ dynamic route
         element: <LessonDetail />
       },
+
+      {
+        path: "knowledge",
+        element: <KnowledgePage />
+      },
+
+      {
+        path: "extend",
+        element: <ExtendPage />
+      },
     ]
   },
-  {
-    path: "quizcover",
-    element: <QuizCoverPage />
-  },
+
   {
     path: 'register',
     element: <RegisterPage />

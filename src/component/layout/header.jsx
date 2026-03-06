@@ -6,7 +6,7 @@ import {
     AppstoreOutlined,
     HomeOutlined,
 } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Image, Menu } from 'antd';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 // import { useContext } from 'react';
 // import { AuthContext } from '../context/authContext';
@@ -20,9 +20,18 @@ const Header = () => {
     // console.log('auth:', auth)
     const items = [
         {
-            label: <Link to="/">Trang chủ</Link>,
-            key: 'home',
-            icon: <HomeOutlined />,
+            label: (
+                <Link to="/">
+                    <div className="logo">
+                    <img
+                        src="/image/logo8_transparent.png"
+                        alt="logo"
+                        className="menu-logo"
+                    />
+                    </div>
+                </Link>
+            ),
+            key: "home"
         },
         {
             label: <Link to="/lessons">Video bài giảng</Link>,

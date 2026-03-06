@@ -3,11 +3,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
- background: linear-gradient(
-90deg,
-#2EC4C7,
-#3A86FF
-);
+  background: linear-gradient(90deg,
+      #2EC4C7,
+      #3A86FF);
   border-bottom: none;
   padding: 0 40px;
   height: 64px;
@@ -61,4 +59,15 @@
     font-size: 13px;
     padding: 0 10px;
   }
+}
+
+.menu-logo {
+  height: 54px;
+  object-fit: contain;
+  padding: 5px;
+}
+.logo{
+  height: 64px;
+  width: 64px;
+  /* background-color: blueviolet; */
 }
