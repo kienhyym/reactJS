@@ -1,35 +1,66 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./LessonDetail.css";
 import { useParams, useNavigate } from "react-router-dom";
 import lessons from "../../data/LessonListdata";
-import { useEffect } from "react";
+import { useEffect,useState ,useMemo} from "react";
+import { getLessonDetail, getLessonList } from "../../api/Lesson";
+import { message } from "antd";
 
 const LessonDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [data, setData] = useState([])
+    const [datalessonList, setDataLessonList] = useState([])
 
-    const currentId = Number(id);
-    const lessonIndex = lessons.findIndex((l) => l.id === currentId);
-    const lesson = lessons[lessonIndex];
+    // const lessonIndex = datalessonList.findIndex((l) => l._id === id);
+
+  const lessonIndex = useMemo(() => datalessonList.findIndex((l) => l._id === id), [datalessonList, id]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const res = await getLessonDetail(id)
+            if (res) {
+                setData(res.data)
+            }
+            else {
+              message.error("Lỗi lấy dự liệu bài giảng")
+            }
+        }
+        getData()
+    }, [])
+
+    useEffect(() => {
+        const getDataLessonList = async () => {
+            const res = await getLessonList()
+            if (res) {
+                setDataLessonList(res.data)
+            }
+            else {
+              message.error("Lỗi lấy dự liệu bài giảng")
+            }
+        }
+        getDataLessonList()
+    }, [])
+
     useEffect(() => {
         window.scrollTo({
             top: 0,
             behavior: "smooth", // có thể bỏ smooth nếu không thích animation
         });
     }, [id]);
-    if (!lesson) {
+    if (!data) {
         return <h2 style={{ padding: 40 }}>Không tìm thấy bài học</h2>;
     }
 
     const handlePrev = () => {
-        if (lessonIndex > 0) {
-            navigate(`/lessons/${lessons[lessonIndex - 1].id}`);
+        if (datalessonList.length > 0) {
+            navigate(`/lessons/${datalessonList[lessonIndex - 1]._id}`);
         }
     };
 
     const handleNext = () => {
         if (lessonIndex < lessons.length - 1) {
-            navigate(`/lessons/${lessons[lessonIndex + 1].id}`);
+            navigate(`/lessons/${datalessonList[lessonIndex + 1]._id}`);
         }
     };
 
@@ -38,15 +69,15 @@ const LessonDetail = () => {
 
             {/* Main Content */}
             <div className="lesson-main">
-                <h2 className="lesson-title">{lesson.title}</h2>
+                <h2 className="lesson-title">{data?.lecture?.title}</h2>
 
-                {lesson.videoUrl.map((video, i) => (
+                {data?.videos?.map((video, i) => (
                     <div className="video-wrapper" key={i}>
                         <span style={{ paddingLeft: 10, display: "block" }}>
-                            {video.title}
+                            {video?.title}
                         </span>
-                        <video width="100%" height="500" controls key={`${lesson.id}-${i}`}>
-                            <source src={video.url} type="video/mp4" />
+                        <video width="100%" height="500" controls key={`${video?._id}`}>
+                            <source src={video?.videoUrl} type="video/mp4" />
                             Trình duyệt không hỗ trợ video.
                         </video>
                     </div>
@@ -59,7 +90,7 @@ const LessonDetail = () => {
                         <button
                             className="nav-btn"
                             onClick={handlePrev}
-                            disabled={lessonIndex === 0}
+                            // disabled={lessonIndex === 0}
                         >
                             ⬅ Bài trước
                         </button>
@@ -79,14 +110,14 @@ const LessonDetail = () => {
             {/* Sidebar */}
             <div className="lesson-sidebar">
                 <h3>📚 Danh sách bài học</h3>
-                {lessons.map((item) => (
+                {datalessonList?.map((item) => (
                     <div
-                        key={item.id}
-                        className={`sidebar-item ${item.id === currentId ? "active" : ""
+                        key={item._id}
+                        className={`sidebar-item ${item._id === id  ? "active" : ""
                             }`}
-                        onClick={() => navigate(`/lessons/${item.id}`)}
+                        onClick={() => navigate(`/lessons/${item._id}`)}
                     >
-                        {item.title}
+                        {item?.title}
                     </div>
                 ))}
             </div>
