@@ -37,9 +37,6 @@ const QuizPage = () => {
     setSubmitted(true);
   };
 
-  if (questions.length === 0) {
-    return <></>
-  }
   const score = questions?.reduce((total,q,qIndex)=>{
 
     const correctIndex = q.options.findIndex(opt=>opt.isCorrect);
@@ -120,7 +117,7 @@ const QuizPage = () => {
       {submitted && (
 
         <div className="result-box">
-          🎉 Bạn đạt {score} / {questions.length} điểm
+          🎉 Bạn đạt {score} / {questions?.length} điểm
         </div>
 
       )}
