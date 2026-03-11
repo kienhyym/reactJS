@@ -1,33 +1,45 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { getKnowledge } from "../../api/Knowledge";
+import KnowledgeItem from "./KnowledgeItem/KnowledgeItem";
 import "./KnowledgePage.css";
+import { useEffect, useState } from "react";
 
 const KnowledgePage = () => {
-
-  const navigate = useNavigate();
+  const [data , setData] = useState([])
+  useEffect(() => {
+    const getData = async () => {
+      const res = await getKnowledge()
+      if (res) {
+        console.log(res)
+        setData(res.data)
+      }
+      else {
+        console.log("res lectures error:");
+      }
+    }
+    getData()
+  }, [])
 
   return (
-    <div className="coming-container">
 
-      <div className="coming-card">
+    <div className="knowledge-container">
 
-        <div className="icon">🚧</div>
+      <h1 className="page-title">📚 Tổng hợp kiến thức</h1>
 
-        <h1>Chức năng kiến thức tổng hợp đang được cập nhật</h1>
+      <div className="knowledge-list">
 
-        <p>
-          Trang này đang được phát triển. <br />
-          Vui lòng quay lại sau.
-        </p>
-
-        <button onClick={() => navigate("/")}>
-          ⬅ Quay về trang chủ
-        </button>
+        {data.map(item => (
+          <KnowledgeItem
+            key={item.id}
+            item={item}
+          />
+        ))}
 
       </div>
 
     </div>
+
   );
+
 };
 
 export default KnowledgePage;
