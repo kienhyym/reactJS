@@ -1,75 +1,125 @@
-.coming-container{
+.extend-container {
 
-  height:100vh;
-  width:100%;
+  /* max-width:1200px; */
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  margin: auto;
 
-  background:linear-gradient(135deg,#e0f7fa,#f1f8ff);
-
-  font-family:Arial, Helvetica, sans-serif;
+  padding: 40px 20px;
 }
 
-.coming-card{
+.extend-container h1 {
 
-  background:white;
-
-  padding:60px;
-
-  border-radius:20px;
-
-  text-align:center;
-
-  box-shadow:0 10px 40px rgba(0,0,0,0.15);
-
-  max-width:500px;
+  margin-bottom: 30px;
 }
 
-.icon{
+.extend-grid {
 
-  font-size:60px;
+  display: grid;
 
-  margin-bottom:20px;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
 }
 
-.coming-card h1{
-
-  margin-bottom:15px;
-
-  color:#333;
+.page-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
 }
 
-.coming-card p{
+/* pagination */
 
-  color:#666;
+.pagination {
 
-  margin-bottom:30px;
+  margin-top: 35px;
+
+  display: flex;
+
+  justify-content: center;
+
+  gap: 10px;
 }
 
-.coming-card button{
+.pagination button {
 
-  padding:12px 25px;
+  padding: 6px 12px;
 
-  border:none;
+  border: none;
 
-  border-radius:25px;
+  border-radius: 6px;
 
-  background:#4caf50;
+  background: #eee;
 
-  color:white;
-
-  font-size:16px;
-
-  cursor:pointer;
-
-  transition:0.25s;
+  cursor: pointer;
 }
 
-.coming-card button:hover{
+.pagination button.active {
 
-  transform:scale(1.05);
+  background: #2563eb;
 
-  background:#43a047;
+  color: white;
+}
+
+
+.video-modal {
+
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 999;
+}
+
+.video-modal-content {
+
+  position: relative;
+
+  width: 80%;
+
+  max-width: 900px;
+
+  /* background:black; */
+
+  /* border-radius:10px; */
+
+  overflow: hidden;
+}
+
+.video-player {
+
+  width: 100%;
+
+  height: auto;
+}
+
+.box-close {
+  width: 100%;
+  height: 45px;
+}
+
+.close-btn {
+
+  position: relative;
+  float: right;
+  background: white;
+
+  border: none;
+
+  width: 35px;
+
+  height: 35px;
+
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  font-size: 18px;
 }
