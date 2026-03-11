@@ -4,10 +4,10 @@ const KnowledgeItem = ({ item }) => {
 
   return (
     <div className="box">
-      <a
-        href={item.link}
-        target="_blank"
-        rel="noreferrer"
+      <div
+        // href={item.link}
+        // target="_blank"
+        // rel="noreferrer"
         className="knowledge-item"
       >
         <div className="knowledge-content">
@@ -22,7 +22,7 @@ const KnowledgeItem = ({ item }) => {
 
 
 
-      </a>
+      </div>
     </div >
   );
 
