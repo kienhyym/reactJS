@@ -5,6 +5,14 @@
   margin: auto;
 
   padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width:600px) {
+
+  .lesson-container {
+    padding: 40px 0px;
+  }
 }
 
 .lesson-container h1 {
@@ -19,6 +27,32 @@
   grid-template-columns: repeat(4, 1fr);
 
   gap: 20px;
+}
+
+/* tablet */
+
+@media (max-width:1024px) {
+
+  .lesson-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+/* mobile */
+
+@media (max-width:600px) {
+
+  .lesson-grid {
+
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+  }
+
 }
 
 .page-title {

@@ -10,18 +10,15 @@ const KnowledgeItem = ({ item }) => {
         // rel="noreferrer"
         className="knowledge-item"
       >
-        <div className="knowledge-content">
+        {/* <div className="knowledge-content">
           <h2>{item.title}</h2>
           <span className="knowledge-btn">
             Thực hành tổng hợp →
           </span>
-        </div>
+        </div> */}
         <div className="knowledge-thumb">
           <img src={item.imageUrl} alt={item.title} />
         </div>
-
-
-
       </div>
     </div >
   );

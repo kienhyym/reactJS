@@ -29,7 +29,7 @@ const LessonCard = ({ lesson }) => {
 
         <button
           className="learn-btn"
-          onClick={(e)=>{
+          onClick={(e) => {
             e.stopPropagation();
             navigate(`/lessons/${lesson._id}`);
           }}
