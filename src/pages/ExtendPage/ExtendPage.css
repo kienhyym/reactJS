@@ -7,6 +7,13 @@
   padding: 40px 20px;
 }
 
+@media (max-width:600px) {
+
+  .extend-container {
+    padding: 40px 0px;
+  }
+}
+
 .extend-container h1 {
 
   margin-bottom: 30px;
@@ -19,6 +26,8 @@
   grid-template-columns: repeat(4, 1fr);
 
   gap: 20px;
+
+  margin-top: 30px;
 }
 
 .page-title {
@@ -122,4 +131,28 @@
   cursor: pointer;
 
   font-size: 18px;
+}
+
+/* tablet */
+
+@media (max-width:1024px) {
+
+  .extend-grid {
+
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
+}
+
+/* mobile */
+
+@media (max-width:600px) {
+
+  .extend-grid {
+
+    grid-template-columns: 1fr;
+
+  }
+
 }

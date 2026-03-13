@@ -5,33 +5,13 @@ import { useContext, useEffect } from "react"
 import { AuthContext } from "./component/context/authContext"
 import { use } from "react"
 import { homeApi } from "./util/api"
-
+import './style/main.css'
 
 function App() {
-  // const { setAtuh, loading, setLoading } = useContext(AuthContext)
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const festAccount = async () => {
-  //     const res = await axios.get(`/v1/api/account`)
-  //     console.log('res:', res);
-  //     if (res && res.message) {
-  //       setAtuh({
-  //         isAuthenticated: true,
-  //         user: {
-  //           name: res.email,
-  //           email: res.name
-  //         },
-  //       })
-  //       setLoading(false);
-  //     }
-  //   }
-  //   festAccount()
-  // }, [])
 
   useEffect(() => {
     const checkApi = async () => {
       const res = await homeApi();
-      console.log('res:', res);
     }
     checkApi()
   }, [])
@@ -40,7 +20,9 @@ function App() {
       {/* {loading ? <div>Loading...</div> : */}
       <>
         <Header />
-        <Outlet />
+        <div className="outlet-main">
+          <Outlet />
+        </div>
       </>
       {/* } */}
     </div>

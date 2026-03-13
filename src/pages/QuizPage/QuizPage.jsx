@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./QuizPage.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useParams } from "react-router-dom";
+import { message } from "antd";
 
 const QuizPage = () => {
 
@@ -18,7 +19,7 @@ const QuizPage = () => {
         setQuestions(res.questions)
       }
       else {
-        console.log("res lectures error:");
+        message.error("Lỗi lấy dữ liệu")
       }
     }
     getData()

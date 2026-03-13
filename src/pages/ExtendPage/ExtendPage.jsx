@@ -2,44 +2,34 @@ import React, { useState, useEffect } from "react";
 import ExtendCard from "./ExtendCard/ExtendCard";
 import "./ExtendPage.css";
 import { getExtend } from "../../api/Extend";
+import { message } from "antd";
 
 const ExtendPage = () => {
-
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
-
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-
     const getData = async () => {
-
       const res = await getExtend();
-
       if (res) {
         setData(res.data);
       } else {
-        console.log("res error");
+        message.error("lỗi lấy dữ liệu")
       }
-
     }
-
     getData();
-
   }, []);
 
   const pageSize = 8;
   const start = (page - 1) * pageSize;
-
   const current = data.slice(start, start + pageSize);
-
   const totalPages = Math.ceil(data.length / pageSize);
 
   const handleOpenVideo = (extend) => {
     setSelectedVideo(extend);
     setOpen(true);
-
   }
 
   const handleClose = () => {

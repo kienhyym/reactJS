@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input, notification } from 'antd';
+import { Button,  Form, Input, notification } from 'antd';
 import { createrUserApi } from '../util/api';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,11 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const RegisterPage = () => {
     const navigate = useNavigate();
     const onFinish = async (values) => {
-        console.log('Success:', values);
         const { name, email, password } = values;
         const res = await createrUserApi(name, email, password);
-                console.log('res:', res);
-
         if (res) {
             notification.success({
                 message: 'Đăng ký thành công',

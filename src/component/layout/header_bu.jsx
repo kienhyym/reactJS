@@ -9,8 +9,6 @@ const Header = () => {
     const navifate = useNavigate();
     const { auth,setAtuh } = useContext(AuthContext)
     const [current, setCurrent] = useState('mail');
-
-    console.log('auth:', auth)
     const items = [
         {
             label: <Link to="/">home page</Link>,
@@ -34,7 +32,6 @@ const Header = () => {
                     key: 'login',
                 }] : [{
                     label: <span onClick={() => {
-                        console.log('logout');
                         setAtuh({
                             isAuthenticated: false,
                             user: {
@@ -56,7 +53,6 @@ const Header = () => {
         },
     ];
     const onClick = (e) => {
-        console.log('click ', e);
         setCurrent(e.key);
     };
     return <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />;

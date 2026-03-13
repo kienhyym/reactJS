@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { getKnowledge } from "../../api/Knowledge";
 import KnowledgeItem from "./KnowledgeItem/KnowledgeItem";
 import "./KnowledgePage.css";
@@ -9,11 +10,10 @@ const KnowledgePage = () => {
     const getData = async () => {
       const res = await getKnowledge()
       if (res) {
-        console.log(res)
         setData(res.data)
       }
       else {
-        console.log("res lectures error:");
+        message.error("Lỗi lấy dữ liệu")
       }
     }
     getData()

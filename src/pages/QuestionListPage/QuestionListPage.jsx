@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import lessons from "../../data/LessonListdata";
 import "./QuestionListPage.css";
 import { getLessonList } from "../../api/Lesson";
+import { message } from "antd";
 
 const QuestionListPage = () => {
   const navigate = useNavigate();
@@ -11,13 +12,10 @@ const QuestionListPage = () => {
     const getData = async () => {
       const res = await getLessonList()
       if (res) {
-        console.log('==========xx=========', res)
         setData(res.data)
       }
       else {
-        setData('==========xx=========')
-
-        console.log("res lectures error:");
+        message.error("Lỗi lấy dữ liệu")
       }
     }
     getData()
@@ -27,7 +25,7 @@ const QuestionListPage = () => {
       <h1 className="page-title">🧪 Câu hỏi ôn tập theo bài</h1>
 
       <div className="question-grid">
-        <h2 style={{color:"#3A86FF" }}>Chương 1: Phản ứng hoá học</h2>
+        <h2 style={{ color: "#3A86FF" }}>Chương 1: Phản ứng hoá học</h2>
         {lessons?.map((lesson) => (
           <div key={lesson.id} className="question-card">
             <div className="question-info">

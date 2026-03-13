@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from "react";
 import LessonCard from "./LessonCard/LessonCard";
 import "./LessonList.css";
 import { getLessonList } from "../../api/Lesson";
+import { message } from "antd";
 
 
 const LessonList = () => {
@@ -12,10 +13,9 @@ const LessonList = () => {
       const res = await getLessonList()
       if (res) {
         setData(res.data)
-        // console.log("=============>getData", res.data);
       }
       else{
-        console.log("res lectures error:");
+       message.error("lỗi lấy dữ liệu")
       }
     }
     getData()

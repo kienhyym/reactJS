@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     PlayCircleOutlined,
     QuestionCircleOutlined,
     BookOutlined,
     AppstoreOutlined,
-    HomeOutlined,
 } from '@ant-design/icons';
-import { Image, Menu } from 'antd';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-// import { useContext } from 'react';
-// import { AuthContext } from '../context/authContext';
+import { Menu } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
 import "./header.css"
 
 const Header = () => {
-    const navifate = useNavigate();
-    // const { auth, setAtuh } = useContext(AuthContext)
     const location = useLocation();
-
-    // console.log('auth:', auth)
     const items = [
         {
             label: (
                 <Link to="/">
                     <div className="logo">
-                    <img
-                        src="/image/logo8_transparent.png"
-                        alt="logo"
-                        className="menu-logo"
-                    />
+                        <img
+                            src="/image/logo8_transparent.png"
+                            alt="logo"
+                            className="menu-logo"
+                        />
                     </div>
                 </Link>
             ),
