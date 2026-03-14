@@ -27,7 +27,7 @@ const LessonDetail = () => {
             }
         }
         getData()
-    }, [])
+    }, [id])
 
     useEffect(() => {
         const getDataLessonList = async () => {

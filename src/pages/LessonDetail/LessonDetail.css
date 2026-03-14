@@ -9,7 +9,8 @@
     flex: 3;
     padding: 30px;
 }
-.lesson-title{
+
+.lesson-title {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 20px;
@@ -17,12 +18,16 @@
 
 .video-wrapper {
     width: 100%;
-    height: 500px;
+    aspect-ratio: 16/9;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    margin-bottom: 100px;
+    margin-bottom: 40px;
+}
 
+.video-wrapper video {
+    width: 100%;
+    height: 100%;
 }
 
 .video-wrapper iframe {
@@ -114,4 +119,46 @@
         height: 300px;
         margin-bottom: 100px;
     }
+}
+
+@media (max-width:768px) {
+
+    .lesson-main {
+        padding: 20px 15px;
+    }
+
+    .lesson-title {
+        font-size: 22px;
+        line-height: 1.3;
+    }
+
+    .lesson-info {
+        padding: 18px;
+    }
+
+    .lesson-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-btn {
+        width: 100%;
+    }
+
+    .lesson-sidebar {
+
+        border-left: none;
+        border-top: 1px solid #ddd;
+
+        padding: 15px;
+
+        max-height: 300px;
+
+        overflow-y: auto;
+    }
+
+    .sidebar-item {
+        font-size: 14px;
+    }
+
 }
