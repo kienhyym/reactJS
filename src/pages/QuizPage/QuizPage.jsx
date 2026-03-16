@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./QuizPage.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useParams } from "react-router-dom";
 import { message } from "antd";
+import { createAchievements } from "../../api/Achievements";
 
 const QuizPage = () => {
 
@@ -11,7 +12,12 @@ const QuizPage = () => {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
+  const [studentInfo, setStudentInfo] = useState({
+    name: "",
+    class: ""
+  });
   useEffect(() => {
     const getData = async () => {
       const res = await getQuestionsByLecture(id)
@@ -35,7 +41,18 @@ const QuizPage = () => {
   };
 
   const handleSubmit = () => {
-    setSubmitted(true);
+    setShowModal(true);
+
+  };
+  const confirmSubmit = () => {
+
+    if (!studentInfo.name || !studentInfo.class) {
+      message.warning("Vui lòng nhập đầy đủ Tên và Lớp");
+      return;
+    }
+    funcSubmitTheTest()
+
+
   };
 
   const score = questions?.reduce((total, q, qIndex) => {
@@ -49,6 +66,29 @@ const QuizPage = () => {
     return total;
 
   }, 0);
+  const submitTheTest = async () => {
+    try {
+      const res = await createAchievements(id,{
+        userName: studentInfo.name,
+        userClass: studentInfo.class,
+        userResult: `${score}/${questions?.length}`
+      })
+      if (res) {
+        message.success("nộp bài thành công")
+        setShowModal(false);
+        setSubmitted(true);
+      } else {
+        setShowModal(false);
+        message.error(res.message)
+      }
+    } catch (error) {
+      setShowModal(false);
+      message.error(error.message)
+    }
+
+  }
+  const funcSubmitTheTest = useCallback(submitTheTest, [studentInfo, score])
+
   return (
 
     <div className="quiz-container">
@@ -100,7 +140,7 @@ const QuizPage = () => {
                     className="option-image"
                   />
                 )}
-               <p>{opt.content}</p> 
+                <p>{opt.content}</p>
               </div>
             </label >
           ))}
@@ -127,7 +167,61 @@ const QuizPage = () => {
         </div>
 
       )}
+      {showModal && (
 
+        <div className="quiz-modal">
+
+          <div className="quiz-modal-content">
+
+            <h2>Thông tin học sinh</h2>
+
+            <input
+              type="text"
+              placeholder="Nhập họ và tên"
+              value={studentInfo.name}
+              onChange={(e) =>
+                setStudentInfo({
+                  ...studentInfo,
+                  name: e.target.value
+                })
+              }
+            />
+
+            <input
+              type="text"
+              placeholder="Nhập lớp"
+              value={studentInfo.class}
+              onChange={(e) =>
+                setStudentInfo({
+                  ...studentInfo,
+                  class: e.target.value
+                })
+              }
+            />
+
+            <div className="modal-buttons">
+
+              <button
+                className="cancel-btn"
+                onClick={() => setShowModal(false)}
+              >
+                Huỷ
+              </button>
+
+              <button
+                className="confirm-btn"
+                onClick={confirmSubmit}
+              >
+                Nộp bài
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      )}
     </div>
 
   );
