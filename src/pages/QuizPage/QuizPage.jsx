@@ -38,17 +38,17 @@ const QuizPage = () => {
     setSubmitted(true);
   };
 
-  const score = questions?.reduce((total,q,qIndex)=>{
+  const score = questions?.reduce((total, q, qIndex) => {
 
-    const correctIndex = q.options.findIndex(opt=>opt.isCorrect);
+    const correctIndex = q.options.findIndex(opt => opt.isCorrect);
 
-    if(answers[qIndex] === correctIndex){
+    if (answers[qIndex] === correctIndex) {
       return total + 1;
     }
 
     return total;
 
-  },0);
+  }, 0);
   return (
 
     <div className="quiz-container">
@@ -72,7 +72,6 @@ const QuizPage = () => {
           )}
 
           {q.options.map((opt, optIndex) => (
-
             <label
               key={opt._id}
               className={`option-label
@@ -93,11 +92,17 @@ const QuizPage = () => {
                 onChange={() => handleChange(qIndex, optIndex)}
                 disabled={submitted}
               />
-
-              {opt.content}
-
-            </label>
-
+              <div className="option-content">
+                {opt.image && (
+                  <img
+                    src={opt.image}
+                    alt="hình ảnh"
+                    className="option-image"
+                  />
+                )}
+               <p>{opt.content}</p> 
+              </div>
+            </label >
           ))}
 
         </div>

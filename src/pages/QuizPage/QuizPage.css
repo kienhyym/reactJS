@@ -5,6 +5,13 @@
   min-height: 100vh;
 }
 
+@media (max-width:600px) {
+
+  .quiz-container {
+    padding: 20px 0px;
+  }
+}
+
 .quiz-title {
   text-align: center;
   margin-bottom: 30px;
@@ -17,7 +24,7 @@
   padding: 25px;
   margin-bottom: 20px;
   border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
 .question-block h3 {
@@ -26,7 +33,7 @@
 }
 
 .option-label {
-  display: block;
+  display: flex;
   padding: 12px 15px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -63,7 +70,7 @@
   font-size: 16px;
   border-radius: 30px;
   border: none;
-  background: linear-gradient(135deg,#667eea,#764ba2);
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   cursor: pointer;
   transition: 0.3s;
@@ -80,37 +87,51 @@
   border-radius: 12px;
   text-align: center;
   font-size: 20px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
-}
-.page-title{
-
-font-size: 36px;
-font-weight: 700;
-
-background: linear-gradient(
-90deg,
-#2EC4C7,
-#3A86FF
-);
-
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-
-margin-bottom: 40px;
-
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
 }
 
-.answer-input{
+.page-title {
 
-  width:250px;
+  font-size: 36px;
+  font-weight: 700;
 
-  padding:10px;
+  background: linear-gradient(90deg,
+      #2EC4C7,
+      #3A86FF);
 
-  border-radius:8px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  border:1px solid #ccc;
+  margin-bottom: 40px;
 
-  margin-top:10px;
+}
 
-  font-size:16px;
+.answer-input {
+
+  width: 250px;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  border: 1px solid #ccc;
+
+  margin-top: 10px;
+
+  font-size: 16px;
+}
+
+
+.question-image {
+  width: 100%;
+}
+
+.option-image {
+  width: 200px;
+}
+
+.option-content {
+  /* display: flex;
+  flex-direction: row; */
+  margin-left: 30px;
 }
