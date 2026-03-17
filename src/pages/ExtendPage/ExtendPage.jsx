@@ -40,13 +40,13 @@ const ExtendPage = () => {
     setSelectedVideo(null);
   }
 if (loading) {
-    return <LoadingPage title="📚 Danh sách video thí nghiệm" />
+    return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
   }
   return (
 
     <div className="extend-container">
 
-      <h1 className="page-title">📚 Danh sách video thí nghiệm</h1>
+      <h1 className="page-title">🔬 Danh sách video thí nghiệm</h1>
 
       <div className="extend-grid">
 

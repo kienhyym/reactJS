@@ -25,7 +25,7 @@ const QuestionListPage = () => {
     getData()
   }, [])
   if (loading) {
-    return <LoadingPage title="🧪 Câu hỏi ôn tập theo bài" style={{
+    return <LoadingPage title="✍ Câu hỏi ôn tập theo bài" style={{
       background: `linear-gradient(
     135deg,
     #e0f7fa,
@@ -34,7 +34,7 @@ const QuestionListPage = () => {
   }
   return (
     <div className="question-container">
-      <h1 className="page-title">🧪 Câu hỏi ôn tập theo bài</h1>
+      <h1 className="page-title">✍ Câu hỏi ôn tập theo bài</h1>
 
       <div className="question-grid">
         <h2 style={{ color: "#3A86FF" }}>Chương 1: Phản ứng hoá học</h2>

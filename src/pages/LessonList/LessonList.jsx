@@ -33,13 +33,13 @@ const LessonList = () => {
 
   const totalPages = Math.ceil(data.length / pageSize);
   if (loading) {
-    return <LoadingPage title="📚 Danh sách bài giảng"  />
+    return <LoadingPage title="📖 Danh sách bài giảng"  />
   }
   return (
 
     <div className="lesson-container">
 
-      <h1 className="page-title">📚 Danh sách bài giảng</h1>
+      <h1 className="page-title">📖 Danh sách bài giảng</h1>
 
       <div className="lesson-grid">
 

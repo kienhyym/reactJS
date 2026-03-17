@@ -23,13 +23,13 @@ const KnowledgePage = () => {
     getData()
   }, [])
   if (loading) {
-    return <LoadingPage title="📚 Tổng hợp kiến thức" />
+    return <LoadingPage title="🧩 Tổng hợp kiến thức" />
   }
   return (
 
     <div className="knowledge-container">
 
-      <h1 className="page-title">📚 Tổng hợp kiến thức</h1>
+      <h1 className="page-title">🧩 Tổng hợp kiến thức</h1>
 
       <div className="knowledge-list">
 
