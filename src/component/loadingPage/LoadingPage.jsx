@@ -4,12 +4,12 @@ import "./LoadingPage.css";
 const LoadingPage = ({ title, style }) => {
     const [over, setOver] = useState(false)
 
-    useEffect(() => {
-        setOver(false)
-        setTimeout(() => {
-            setOver(true)
-        }, 10000);
-    }, [])
+    // useEffect(() => {
+    //     setOver(false)
+    //     setTimeout(() => {
+    //         setOver(true)
+    //     }, 10000);
+    // }, [])
 
     return (
         <div className="loading-container" style={style}>

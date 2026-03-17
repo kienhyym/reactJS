@@ -9,11 +9,22 @@ import './style/main.css'
 
 function App() {
 
-  useEffect(() => {
-    const checkApi = async () => {
-      const res = await homeApi();
+  async function fetchData() {
+    const res = await fetch("https://hoc8.onrender.com/v1/api");
+      console.log("Server warming, retrying...",res);
+
+    if (res.status === 503) {
+      const data = await res.json();
+      console.log("Server warming, retrying...End");
+      await new Promise(r => setTimeout(r, data.retry_after * 1000));
+      return fetchData();
     }
-    checkApi()
+
+    return res.json();
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [])
   return (
     <div className="App">
