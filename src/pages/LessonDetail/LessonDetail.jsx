@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./LessonDetail.css";
 import { useParams, useNavigate } from "react-router-dom";
 import lessons from "../../data/LessonListdata";
-import { useEffect,useState ,useMemo} from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getLessonDetail, getLessonList } from "../../api/Lesson";
 import { message } from "antd";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
@@ -12,11 +12,11 @@ const LessonDetail = () => {
     const navigate = useNavigate();
     const [data, setData] = useState([])
     const [datalessonList, setDataLessonList] = useState([])
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     // const lessonIndex = datalessonList.findIndex((l) => l._id === id);
 
-  const lessonIndex = useMemo(() => datalessonList.findIndex((l) => l._id === id), [datalessonList, id]);
+    const lessonIndex = useMemo(() => datalessonList.findIndex((l) => l._id === id), [datalessonList, id]);
 
     useEffect(() => {
         const getData = async () => {
@@ -25,7 +25,7 @@ const LessonDetail = () => {
                 setData(res.data)
             }
             else {
-              message.error("Lỗi lấy dự liệu bài giảng")
+                message.error("Lỗi lấy dự liệu bài giảng")
             }
             setLoading(false)
         }
@@ -39,7 +39,7 @@ const LessonDetail = () => {
                 setDataLessonList(res.data)
             }
             else {
-              message.error("Lỗi lấy dự liệu bài giảng")
+                message.error("Lỗi lấy dự liệu bài giảng")
             }
         }
         getDataLessonList()
@@ -52,8 +52,8 @@ const LessonDetail = () => {
         });
     }, [id]);
     if (loading) {
-    return <LoadingPage title=""  />
-  }
+        return <LoadingPage title="" />
+    }
     if (!data) {
         return <h2 style={{ padding: 40 }}>Không tìm thấy bài học</h2>;
     }
@@ -69,7 +69,10 @@ const LessonDetail = () => {
             navigate(`/lessons/${datalessonList[lessonIndex + 1]._id}`);
         }
     };
+    const handleQuestion = (id) => {
+        navigate(`/quiz/${id}`);
 
+    }
     return (
         <div className="lesson-detail-container">
 
@@ -91,12 +94,11 @@ const LessonDetail = () => {
 
                 <div className="lesson-info">
                     <p>Đây là nội dung bài giảng</p>
-
                     <div className="lesson-navigation">
                         <button
                             className="nav-btn"
                             onClick={handlePrev}
-                            // disabled={lessonIndex === 0}
+                            disabled={lessonIndex === 0}
                         >
                             ⬅ Bài trước
                         </button>
@@ -115,11 +117,19 @@ const LessonDetail = () => {
 
             {/* Sidebar */}
             <div className="lesson-sidebar">
+                <h3>✍ Câu hỏi ôn tập</h3>
+                <button
+                    className="question-btn"
+                    onClick={() => handleQuestion(data?.lecture?._id)}
+                >
+                    Thực hiện Làm bài ôn tập ➡
+                </button>
+                <br /> <br />
                 <h3>📚 Danh sách bài học</h3>
                 {datalessonList?.map((item) => (
                     <div
                         key={item._id}
-                        className={`sidebar-item ${item._id === id  ? "active" : ""
+                        className={`sidebar-item ${item._id === id ? "active" : ""
                             }`}
                         onClick={() => navigate(`/lessons/${item._id}`)}
                     >

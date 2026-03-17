@@ -172,6 +172,9 @@ const QuizPage = () => {
               className="question-image"
             />
           )}
+          <h5 className="question-type" style={{ margin: `10px 10px`, fontWeight: 'normal', fontStyle: 'italic' }}>
+            {q.type === "multiple" ? "(Chọn nhiều đáp án)" : "(Chọn 1 đáp án)"}
+          </h5>
 
           {q.options.map((opt, optIndex) => (
             <label
