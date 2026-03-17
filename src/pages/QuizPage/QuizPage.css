@@ -1,7 +1,7 @@
 .quiz-container {
   max-width: 900px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 60px 10px;
   min-height: 100vh;
 }
 
@@ -123,7 +123,7 @@
 
 
 .question-image {
-  width: 100%;
+  width: 50%;
 }
 
 .option-image {
@@ -136,77 +136,81 @@
   margin-left: 30px;
 }
 
-.quiz-modal{
+.quiz-modal {
 
-  position:fixed;
+  position: fixed;
 
-  inset:0;
+  inset: 0;
 
-  background:rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 
-  display:flex;
+  display: flex;
 
-  justify-content:center;
+  justify-content: center;
 
-  align-items:center;
+  align-items: center;
 
-  z-index:1000;
+  z-index: 1000;
 }
 
-.quiz-modal-content{
+.quiz-modal-content {
 
-  background:white;
+  background: white;
 
-  padding:30px;
+  padding: 30px;
 
-  border-radius:12px;
+  border-radius: 12px;
 
-  width:320px;
+  width: 320px;
 
-  display:flex;
+  display: flex;
 
-  flex-direction:column;
+  flex-direction: column;
 
-  gap:15px;
+  gap: 15px;
 }
 
-.quiz-modal-content input{
+.quiz-modal-content input {
 
-  padding:10px;
+  padding: 10px;
 
-  border-radius:6px;
+  border-radius: 6px;
 
-  border:1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
-.modal-buttons{
+.modal-buttons {
 
-  display:flex;
+  display: flex;
 
-  justify-content:space-between;
+  justify-content: space-between;
 
 }
 
-.cancel-btn{
+.cancel-btn {
 
-  background:#ddd;
+  background: #ddd;
 
-  border:none;
+  border: none;
 
-  padding:8px 15px;
+  padding: 8px 15px;
 
-  border-radius:6px;
+  border-radius: 6px;
 }
 
-.confirm-btn{
+.confirm-btn {
 
-  background:#3b82f6;
+  background: #3b82f6;
 
-  color:white;
+  color: white;
 
-  border:none;
+  border: none;
 
-  padding:8px 15px;
+  padding: 8px 15px;
 
-  border-radius:6px;
+  border-radius: 6px;
+}
+
+.quiz-container h1 {
+  font-size: 32px;
 }

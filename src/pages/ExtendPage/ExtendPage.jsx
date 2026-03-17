@@ -3,12 +3,14 @@ import ExtendCard from "./ExtendCard/ExtendCard";
 import "./ExtendPage.css";
 import { getExtend } from "../../api/Extend";
 import { message } from "antd";
+import LoadingPage from "../../component/loadingPage/LoadingPage";
 
 const ExtendPage = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getData = async () => {
@@ -18,6 +20,7 @@ const ExtendPage = () => {
       } else {
         message.error("lỗi lấy dữ liệu")
       }
+      setLoading(false)
     }
     getData();
   }, []);
@@ -36,7 +39,9 @@ const ExtendPage = () => {
     setOpen(false);
     setSelectedVideo(null);
   }
-
+if (loading) {
+    return <LoadingPage title="📚 Danh sách video thí nghiệm" />
+  }
   return (
 
     <div className="extend-container">

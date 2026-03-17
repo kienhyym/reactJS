@@ -4,9 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "./QuestionListPage.css";
 import { getLessonList } from "../../api/Lesson";
 import { message } from "antd";
+import LoadingPage from "../../component/loadingPage/LoadingPage";
 
 const QuestionListPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
   const [lessons, setData] = useState([])
   useEffect(() => {
     const getData = async () => {
@@ -17,9 +20,18 @@ const QuestionListPage = () => {
       else {
         message.error("Lỗi lấy dữ liệu")
       }
+      setLoading(false)
     }
     getData()
   }, [])
+  if (loading) {
+    return <LoadingPage title="🧪 Câu hỏi ôn tập theo bài" style={{
+      background: `linear-gradient(
+    135deg,
+    #e0f7fa,
+    #fce4ec
+  )`}} />
+  }
   return (
     <div className="question-container">
       <h1 className="page-title">🧪 Câu hỏi ôn tập theo bài</h1>

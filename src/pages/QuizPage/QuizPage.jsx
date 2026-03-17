@@ -2,8 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./QuizPage.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useParams } from "react-router-dom";
-import { message } from "antd";
+import { message, Spin } from "antd";
 import { createAchievements } from "../../api/Achievements";
+import LoadingPage from "../../component/loadingPage/LoadingPage";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const QuizPage = () => {
 
@@ -13,6 +15,8 @@ const QuizPage = () => {
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loadingBtn, setLoadingBtn] = useState(false);
 
   const [studentInfo, setStudentInfo] = useState({
     name: "",
@@ -22,21 +26,51 @@ const QuizPage = () => {
     const getData = async () => {
       const res = await getQuestionsByLecture(id)
       if (res) {
+        console.log("ress", res)
         setQuestions(res.questions)
       }
       else {
         message.error("Lỗi lấy dữ liệu")
       }
+      setLoading(false)
     }
     getData()
   }, [])
 
-  const handleChange = (qIndex, optIndex) => {
+  const handleChange = (qIndex, optIndex, type) => {
 
-    setAnswers({
-      ...answers,
-      [qIndex]: optIndex
-    });
+    if (type === "single") {
+
+      setAnswers({
+        ...answers,
+        [qIndex]: optIndex
+      });
+
+    }
+
+    if (type === "multiple") {
+
+      const current = answers[qIndex] || [];
+
+      if (current.includes(optIndex)) {
+
+        // bỏ chọn
+        setAnswers({
+          ...answers,
+          [qIndex]: current.filter(i => i !== optIndex)
+        });
+
+      } else {
+
+        // chọn thêm
+        setAnswers({
+          ...answers,
+          [qIndex]: [...current, optIndex]
+        });
+
+      }
+
+    }
 
   };
 
@@ -55,12 +89,34 @@ const QuizPage = () => {
 
   };
 
-  const score = questions?.reduce((total, q, qIndex) => {
+  const score = questions.reduce((total, q, qIndex) => {
 
-    const correctIndex = q.options.findIndex(opt => opt.isCorrect);
+    const correctIndexes = q.options
+      .map((opt, i) => opt.isCorrect ? i : null)
+      .filter(i => i !== null);
 
-    if (answers[qIndex] === correctIndex) {
-      return total + 1;
+    const userAnswer = answers[qIndex];
+
+    if (q.type === "single") {
+
+      if (userAnswer === correctIndexes[0]) {
+        return total + 1;
+      }
+
+    }
+
+    if (q.type === "multiple") {
+
+      if (!userAnswer) return total;
+
+      const isCorrect =
+        userAnswer.length === correctIndexes.length &&
+        userAnswer.every(i => correctIndexes.includes(i));
+
+      if (isCorrect) {
+        return total + 1;
+      }
+
     }
 
     return total;
@@ -68,7 +124,8 @@ const QuizPage = () => {
   }, 0);
   const submitTheTest = async () => {
     try {
-      const res = await createAchievements(id,{
+      setLoadingBtn(true)
+      const res = await createAchievements(id, {
         userName: studentInfo.name,
         userClass: studentInfo.class,
         userResult: `${score}/${questions?.length}`
@@ -81,14 +138,20 @@ const QuizPage = () => {
         setShowModal(false);
         message.error(res.message)
       }
+      setLoadingBtn(false)
+
     } catch (error) {
       setShowModal(false);
       message.error(error.message)
+      setLoadingBtn(false)
     }
 
   }
+  const antIcon = <LoadingOutlined style={{ fontSize: 14, color: 'white', marginRight: 10 }} spin />;
   const funcSubmitTheTest = useCallback(submitTheTest, [studentInfo, score])
-
+  if (loading) {
+    return <LoadingPage title="Bài kiểm tra" style={{}} />
+  }
   return (
 
     <div className="quiz-container">
@@ -96,7 +159,6 @@ const QuizPage = () => {
       <h1 className="page-title">Bài kiểm tra</h1>
 
       {questions?.map((q, qIndex) => (
-
         <div key={q._id} className="question-block">
 
           <h3>
@@ -115,21 +177,26 @@ const QuizPage = () => {
             <label
               key={opt._id}
               className={`option-label
-              ${submitted && opt.isCorrect ? "correct" : ""
-                }
-              ${submitted &&
-                  answers[qIndex] === optIndex &&
-                  !opt.isCorrect
-                  ? "wrong"
-                  : ""
-                }`}
+${submitted && opt.isCorrect ? "correct" : ""}
+${submitted &&
+                  (
+                    q.type === "multiple"
+                      ? (answers[qIndex] || []).includes(optIndex) && !opt.isCorrect
+                      : answers[qIndex] === optIndex && !opt.isCorrect
+                  )
+                  ? "wrong" : ""}
+`}
             >
 
               <input
-                type="radio"
+                type={q.type === "multiple" ? "checkbox" : "radio"}
                 name={`question-${qIndex}`}
-                checked={answers[qIndex] === optIndex}
-                onChange={() => handleChange(qIndex, optIndex)}
+                checked={
+                  q.type === "multiple"
+                    ? (answers[qIndex] || []).includes(optIndex)
+                    : answers[qIndex] === optIndex
+                }
+                onChange={() => handleChange(qIndex, optIndex, q.type)}
                 disabled={submitted}
               />
               <div className="option-content">
@@ -204,6 +271,7 @@ const QuizPage = () => {
               <button
                 className="cancel-btn"
                 onClick={() => setShowModal(false)}
+                disabled={loadingBtn}
               >
                 Huỷ
               </button>
@@ -211,7 +279,9 @@ const QuizPage = () => {
               <button
                 className="confirm-btn"
                 onClick={confirmSubmit}
+                disabled={loadingBtn}
               >
+                {loadingBtn && <Spin size="small" indicator={antIcon} />}
                 Nộp bài
               </button>
 

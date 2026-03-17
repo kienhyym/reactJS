@@ -1,0 +1,69 @@
+.loading-container {
+
+  padding: 60px 10px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f7fa, #e3f2fd);
+  z-index: 9999;
+
+}
+
+.loading-content {
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+/* atom animation */
+
+.atom-loader {
+  margin: auto;
+}
+
+
+
+@keyframes rotate {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+/* text */
+
+.loading-content h2 {
+
+  color: #333;
+
+  margin-bottom: 10px;
+}
+
+.loading-content p {
+
+  color: #666;
+}
+
+
+.page-title {
+
+  font-weight: 700;
+
+  background: linear-gradient(90deg,
+      #2EC4C7,
+      #3A86FF);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 40px;
+}
+
+.loading-content h1 {
+  font-size: 32px;
+
+}

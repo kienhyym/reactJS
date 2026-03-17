@@ -4,8 +4,7 @@
 
   margin: auto;
 
-  padding: 40px 20px;
-  box-sizing: border-box;
+  padding: 60px 20px;
 }
 
 @media (max-width:600px) {
@@ -17,7 +16,7 @@
 
 .lesson-container h1 {
 
-  margin-bottom: 30px;
+ font-size: 32px;
 }
 
 .lesson-grid {

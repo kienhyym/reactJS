@@ -4,7 +4,7 @@
 
   margin: auto;
 
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
 @media (max-width:600px) {
@@ -16,7 +16,7 @@
 
 .extend-container h1 {
 
-  margin-bottom: 30px;
+ font-size: 32px;
 }
 
 .extend-grid {

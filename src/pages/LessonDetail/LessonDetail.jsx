@@ -5,12 +5,14 @@ import lessons from "../../data/LessonListdata";
 import { useEffect,useState ,useMemo} from "react";
 import { getLessonDetail, getLessonList } from "../../api/Lesson";
 import { message } from "antd";
+import LoadingPage from "../../component/loadingPage/LoadingPage";
 
 const LessonDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState([])
     const [datalessonList, setDataLessonList] = useState([])
+  const [loading, setLoading] = useState(true);
 
     // const lessonIndex = datalessonList.findIndex((l) => l._id === id);
 
@@ -25,6 +27,7 @@ const LessonDetail = () => {
             else {
               message.error("Lỗi lấy dự liệu bài giảng")
             }
+            setLoading(false)
         }
         getData()
     }, [id])
@@ -48,6 +51,9 @@ const LessonDetail = () => {
             behavior: "smooth", // có thể bỏ smooth nếu không thích animation
         });
     }, [id]);
+    if (loading) {
+    return <LoadingPage title=""  />
+  }
     if (!data) {
         return <h2 style={{ padding: 40 }}>Không tìm thấy bài học</h2>;
     }
