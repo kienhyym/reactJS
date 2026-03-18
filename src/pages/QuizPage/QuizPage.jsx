@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import "./QuizPage.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,8 @@ import { message, Spin } from "antd";
 import { createAchievements } from "../../api/Achievements";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
 import { LoadingOutlined } from "@ant-design/icons";
+import { AuthContext } from "../../component/context/authContext";
+import { startApp } from "../../util/apiHeath";
 
 const QuizPage = () => {
 
@@ -23,20 +25,25 @@ const QuizPage = () => {
     name: "",
     class: ""
   });
+  const { auth, setAtuh } = useContext(AuthContext)
+  const hasCalled = useRef(false);
   useEffect(() => {
     const getData = async () => {
-      const res = await getQuestionsByLecture(id)
+      setLoading(true)
+      if (hasCalled.current) return;
+      hasCalled.current = true;
+      const res = await startApp(() => getQuestionsByLecture(id), auth, setAtuh)
       if (res) {
         setQuestions(res.questions)
         setQuestionTitle(res.lectureTitle)
-      }
-      else {
-        message.error("Lỗi lấy dữ liệu")
+      } else {
+        message.error("lỗi lấy dữ liệu")
       }
       setLoading(false)
     }
-    getData()
-  }, [])
+    getData();
+  }, [id])
+
 
   const handleChange = (qIndex, optIndex, type) => {
 

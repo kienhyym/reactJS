@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import "./LessonDetail.css";
 import { useParams, useNavigate } from "react-router-dom";
 import lessons from "../../data/LessonListdata";
@@ -6,6 +6,8 @@ import { useEffect, useState, useMemo } from "react";
 import { getLessonDetail, getLessonList } from "../../api/Lesson";
 import { message } from "antd";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
+import { AuthContext } from "../../component/context/authContext";
+import { startApp } from "../../util/apiHeath";
 
 const LessonDetail = () => {
     const { id } = useParams();
@@ -18,32 +20,24 @@ const LessonDetail = () => {
 
     const lessonIndex = useMemo(() => datalessonList.findIndex((l) => l._id === id), [datalessonList, id]);
 
+    const { auth, setAtuh } = useContext(AuthContext)
+    const hasCalled = useRef(false);
     useEffect(() => {
         const getData = async () => {
-            const res = await getLessonDetail(id)
+            setLoading(true)
+            const res = await startApp(() => getLessonDetail(id), auth, setAtuh)
             if (res) {
                 setData(res.data)
-            }
-            else {
-                message.error("Lỗi lấy dự liệu bài giảng")
+                setDataLessonList(res.data.lectures)
+
+            } else {
+                message.error("lỗi lấy dữ liệu")
             }
             setLoading(false)
         }
-        getData()
+        getData();
     }, [id])
 
-    useEffect(() => {
-        const getDataLessonList = async () => {
-            const res = await getLessonList()
-            if (res) {
-                setDataLessonList(res.data)
-            }
-            else {
-                message.error("Lỗi lấy dự liệu bài giảng")
-            }
-        }
-        getDataLessonList()
-    }, [])
 
     useEffect(() => {
         window.scrollTo({

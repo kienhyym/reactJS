@@ -1,8 +1,9 @@
 import axios from "../util/axios.custiomzie";
 
-const getExtend= () => {
+const getExtend = async () => {
     const URL_API = `/v1/api/extend`;
-    return axios.get(URL_API);
+    const response = await axios.get(URL_API);
+    return response
 }
 export {
     getExtend,

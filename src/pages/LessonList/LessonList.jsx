@@ -1,28 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import LessonCard from "./LessonCard/LessonCard";
 import "./LessonList.css";
 import { getLessonList } from "../../api/Lesson";
 import { message } from "antd";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
+import { AuthContext } from "../../component/context/authContext";
+import { startApp } from "../../util/apiHeath";
 
 
 const LessonList = () => {
   const [data, setData] = useState([])
   const [loading, setLoading] = useState(true);
-
+  const { auth, setAtuh } = useContext(AuthContext)
+  const hasCalled = useRef(false);
   useEffect(() => {
     const getData = async () => {
-      const res = await getLessonList()
+      setLoading(true)
+      if (hasCalled.current) return;
+      hasCalled.current = true;
+      const res = await startApp(getLessonList, auth, setAtuh)
       if (res) {
-        setData(res.data)
-      }
-      else {
+        setData(res.data);
+      } else {
         message.error("lỗi lấy dữ liệu")
       }
       setLoading(false)
     }
-    getData()
+    getData();
   }, [])
+
   const [page, setPage] = useState(1);
 
   const pageSize = 8;
@@ -33,7 +39,7 @@ const LessonList = () => {
 
   const totalPages = Math.ceil(data.length / pageSize);
   if (loading) {
-    return <LoadingPage title="📖 Danh sách bài giảng"  />
+    return <LoadingPage title="📖 Danh sách bài giảng" />
   }
   return (
 

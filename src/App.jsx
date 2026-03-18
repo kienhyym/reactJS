@@ -1,46 +1,19 @@
 import { Outlet } from "react-router-dom"
 import Header from "./component/layout/header"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import './style/main.css'
 import { AuthContext } from "./component/context/authContext"
+import { homeApi } from "./util/api"
+import { startApp } from "./util/apiHeath"
 
 function App() {
   const { auth, setAtuh } = useContext(AuthContext)
-
-  async function waitForServer(url, timeout = 60000) {
-    const start = Date.now();
-
-    while (Date.now() - start < timeout) {
-      try {
-        const res = await fetch(url);
-
-        if (res.ok) {
-          console.log("Server ready");
-          return true;
-        }
-      } catch (err) {
-        console.log("Server not ready, retrying...");
-      }
-
-      await new Promise(r => setTimeout(r, 3000)); // chờ 3s rồi thử lại
-    }
-
-    throw new Error("Server did not start in time");
-  }
-  async function startApp() {
-    try {
-      await waitForServer("https://hoc8.onrender.com/v1/api");
-      setAtuh({ ...auth, loading: false })
-                  window.location.reload();
-
-    } catch (err) {
-      console.error("Server failed to start", err);
-    }
-  }
+  const hasCalled = useRef(false);
 
   useEffect(() => {
-    setAtuh({ ...auth, loading: true })
-    startApp()
+    if (hasCalled.current) return;
+    hasCalled.current = true;
+    startApp(homeApi, auth, setAtuh)
   }, [])
 
   return (

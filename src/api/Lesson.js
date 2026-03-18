@@ -1,20 +1,24 @@
 import axios from "../util/axios.custiomzie";
 
-const getLessonList = () => {
+const getLessonList = async () => {
     const URL_API = `/v1/api/lectures`;
-    return axios.get(URL_API);
+    const response = await axios.get(URL_API);
+    return response
+
 }
 
-const getLessonDetail = (id) => {
+const getLessonDetail = async (id) => {
     const URL_API = `/v1/api/lecture/` + id;
-    return axios.get(URL_API);
+    const response = await axios.get(URL_API);
+    return response
 }
-const getQuestionsByLecture= (value) => {
+const getQuestionsByLecture = async (value) => {
     const URL_API = `/v1/api/lectures/${value}/questions/`;
-    return axios.get(URL_API);
+    const response = await axios.get(URL_API);
+    return response
 }
 export {
     getLessonList,
     getLessonDetail,
-    getQuestionsByLecture 
+    getQuestionsByLecture
 }

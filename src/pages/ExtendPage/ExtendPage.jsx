@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import ExtendCard from "./ExtendCard/ExtendCard";
 import "./ExtendPage.css";
 import { getExtend } from "../../api/Extend";
 import { message } from "antd";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
+import { AuthContext } from "../../component/context/authContext";
+import { startApp } from "../../util/apiHeath";
 
 const ExtendPage = () => {
   const [data, setData] = useState([]);
@@ -12,9 +14,14 @@ const ExtendPage = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const { auth, setAtuh } = useContext(AuthContext)
+  const hasCalled = useRef(false);
   useEffect(() => {
     const getData = async () => {
-      const res = await getExtend();
+      setLoading(true)
+      if (hasCalled.current) return;
+      hasCalled.current = true;
+      const res = await startApp(getExtend, auth, setAtuh)
       if (res) {
         setData(res.data);
       } else {
@@ -23,12 +30,12 @@ const ExtendPage = () => {
       setLoading(false)
     }
     getData();
-  }, []);
+  }, [])
 
   const pageSize = 8;
   const start = (page - 1) * pageSize;
-  const current = data.slice(start, start + pageSize);
-  const totalPages = Math.ceil(data.length / pageSize);
+  const current = data?.slice(start, start + pageSize);
+  const totalPages = Math.ceil(data?.length / pageSize);
 
   const handleOpenVideo = (extend) => {
     setSelectedVideo(extend);
@@ -39,7 +46,7 @@ const ExtendPage = () => {
     setOpen(false);
     setSelectedVideo(null);
   }
-if (loading) {
+  if (loading) {
     return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
   }
   return (
@@ -50,7 +57,7 @@ if (loading) {
 
       <div className="extend-grid">
 
-        {current.map((extend) => (
+        {current?.map((extend) => (
           <ExtendCard
             key={extend._id}
             extend={extend}

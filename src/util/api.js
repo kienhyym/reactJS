@@ -26,10 +26,12 @@ const getUsersApi = () => {
     return axios.get(URL_API);
 }
 
-const homeApi = () => {
+const homeApi = async () => {
     const URL_API = `/v1/api`;
-
-    return axios.get(URL_API, "truy cập api thành công");
+    const response = await axios.get(URL_API, "truy cập api thành công");
+    console.log("response",response)
+    // if (response && response.data) return response.data;
+    return response
 }
 
 export { createrUserApi, loginApi, getUsersApi, homeApi }

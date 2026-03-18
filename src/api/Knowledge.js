@@ -1,8 +1,10 @@
 import axios from "../util/axios.custiomzie";
 
-const getKnowledge = () => {
+const getKnowledge = async () => {
     const URL_API = `/v1/api/knowledge`;
-    return axios.get(URL_API);
+    const response = await axios.get(URL_API);
+    return response
+
 }
 export {
     getKnowledge,
