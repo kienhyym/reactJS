@@ -17,6 +17,7 @@ const QuizPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loadingBtn, setLoadingBtn] = useState(false);
+  const [questionTitle, setQuestionTitle] = useState("");
 
   const [studentInfo, setStudentInfo] = useState({
     name: "",
@@ -26,8 +27,8 @@ const QuizPage = () => {
     const getData = async () => {
       const res = await getQuestionsByLecture(id)
       if (res) {
-        console.log("ress", res)
         setQuestions(res.questions)
+        setQuestionTitle(res.lectureTitle)
       }
       else {
         message.error("Lỗi lấy dữ liệu")
@@ -157,7 +158,7 @@ const QuizPage = () => {
     <div className="quiz-container">
 
       <h1 className="page-title">Bài kiểm tra</h1>
-
+      <h3 style={{ margin: '20px 0px' }}>{questionTitle}</h3>
       {questions?.map((q, qIndex) => (
         <div key={q._id} className="question-block">
 

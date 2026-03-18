@@ -35,7 +35,7 @@ const KnowledgePage = () => {
 
         {data.map(item => (
           <KnowledgeItem
-            key={item.id}
+            key={item._id}
             item={item}
           />
         ))}

@@ -39,7 +39,7 @@ const QuestionListPage = () => {
       <div className="question-grid">
         <h2 style={{ color: "#3A86FF" }}>Chương 1: Phản ứng hoá học</h2>
         {lessons?.map((lesson) => (
-          <div key={lesson.id} className="question-card">
+          <div key={lesson._id} className="question-card">
             <div className="question-info">
               <h3>{lesson.title}</h3>
               {/* <p>Có {lesson?.length} câu hỏi</p> */}

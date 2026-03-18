@@ -45,7 +45,7 @@ const LessonList = () => {
 
         {current.map((lesson) => (
           <LessonCard
-            key={lesson.id}
+            key={lesson._id}
             lesson={lesson}
           />
         ))}
