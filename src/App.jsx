@@ -1,41 +1,54 @@
 import { Outlet } from "react-router-dom"
 import Header from "./component/layout/header"
-import axios from "./util/axios.custiomzie"
 import { useContext, useEffect } from "react"
-import { AuthContext } from "./component/context/authContext"
-import { use } from "react"
-import { homeApi } from "./util/api"
 import './style/main.css'
+import { AuthContext } from "./component/context/authContext"
 
 function App() {
+  const { auth, setAtuh } = useContext(AuthContext)
 
-  async function fetchData() {
-    const res = await fetch("https://hoc8.onrender.com/v1/api");
-      console.log("Server warming, retrying...",res);
+  async function waitForServer(url, timeout = 60000) {
+    const start = Date.now();
 
-    if (res.status === 503) {
-      const data = await res.json();
-      console.log("Server warming, retrying...End");
-      await new Promise(r => setTimeout(r, data.retry_after * 1000));
-      return fetchData();
+    while (Date.now() - start < timeout) {
+      try {
+        const res = await fetch(url);
+
+        if (res.ok) {
+          console.log("Server ready");
+          return true;
+        }
+      } catch (err) {
+        console.log("Server not ready, retrying...");
+      }
+
+      await new Promise(r => setTimeout(r, 3000)); // chờ 3s rồi thử lại
     }
 
-    return res.json();
+    throw new Error("Server did not start in time");
+  }
+  async function startApp() {
+    try {
+      await waitForServer("https://hoc8.onrender.com/v1/api");
+      setAtuh({ ...auth, loading: false })
+    } catch (err) {
+      console.error("Server failed to start", err);
+    }
   }
 
   useEffect(() => {
-    fetchData()
+    setAtuh({ ...auth, loading: true })
+    startApp()
   }, [])
+
   return (
     <div className="App">
-      {/* {loading ? <div>Loading...</div> : */}
       <>
         <Header />
         <div className="outlet-main">
           <Outlet />
         </div>
       </>
-      {/* } */}
     </div>
 
   )

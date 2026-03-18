@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect,  useState } from "react";
 import "./LoadingPage.css";
+import { AuthContext } from "../context/authContext";
 
 const LoadingPage = ({ title, style }) => {
-    const [over, setOver] = useState(false)
+    const { auth } = useContext(AuthContext)
+    const [showSlowText, setShowSlowText] = useState(false);
+    useEffect(() => {
+        let timer;
+        if (auth.loading) {
+            timer = setTimeout(() => {
+                setShowSlowText(true);
+            }, 10000);
 
-    // useEffect(() => {
-    //     setOver(false)
-    //     setTimeout(() => {
-    //         setOver(true)
-    //     }, 10000);
-    // }, [])
-
+        } else {
+            setShowSlowText(false);
+        }
+        return () => clearTimeout(timer);
+    }, [auth.loading]);
     return (
         <div className="loading-container" style={style}>
 
@@ -22,11 +28,12 @@ const LoadingPage = ({ title, style }) => {
                 </div>
 
                 <h2>Đang tải dữ liệu...</h2>
-                {over ?
+                {showSlowText ?
                     <>
                         <p>Đang khởi động server sẽ mất chút thời gian ⏳</p>
                         <p>Xin lỗi vì xự bất tiện này</p>
                         <p>(⁎˃ᆺ˂)</p>
+                        <p>Quá trình này có thể mất ~30s</p>
                     </>
                     :
                     <p>Vui lòng chờ trong giây lát ⏳</p>
