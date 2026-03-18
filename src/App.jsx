@@ -31,6 +31,8 @@ function App() {
     try {
       await waitForServer("https://hoc8.onrender.com/v1/api");
       setAtuh({ ...auth, loading: false })
+                  window.location.reload();
+
     } catch (err) {
       console.error("Server failed to start", err);
     }
