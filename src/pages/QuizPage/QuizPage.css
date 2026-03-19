@@ -214,3 +214,8 @@
 .quiz-container h1 {
   font-size: 32px;
 }
+.unanswered{
+
+  border-left:4px solid #ffa940;
+
+}

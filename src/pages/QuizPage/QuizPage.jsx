@@ -44,7 +44,44 @@ const QuizPage = () => {
     getData();
   }, [id])
 
+  const isAllAnswered = () => {
 
+  return questions.every((q, qIndex) => {
+
+    const answer = answers[qIndex];
+
+    if(q.type === "single"){
+      return answer !== undefined;
+    }
+
+    if(q.type === "multiple"){
+      return Array.isArray(answer) && answer.length > 0;
+    }
+
+    return false;
+
+  });
+
+};
+const isUnanswered = (q, qIndex) => {
+
+  if(!submitted){
+
+    const answer = answers[qIndex];
+
+    if(q.type === "single"){
+      return answer === undefined;
+    }
+
+    if(q.type === "multiple"){
+      return !answer || answer.length === 0;
+    }
+
+  }
+
+  return false;
+
+};
   const handleChange = (qIndex, optIndex, type) => {
 
     if (type === "single") {
@@ -83,6 +120,12 @@ const QuizPage = () => {
   };
 
   const handleSubmit = () => {
+    if(!isAllAnswered()){
+
+    message.warning("⚠️ Vui lòng trả lời tất cả câu hỏi trước khi nộp!");
+
+    return;
+  }
     setShowModal(true);
 
   };
@@ -167,7 +210,7 @@ const QuizPage = () => {
       <h1 className="page-title">Bài kiểm tra</h1>
       <h3 style={{ margin: '20px 0px' }}>{questionTitle}</h3>
       {questions?.map((q, qIndex) => (
-        <div key={q._id} className="question-block">
+        <div key={q._id} className={`question-block ${isUnanswered(q,qIndex) ? "unanswered" : ""}`}>
 
           <h3>
             {qIndex + 1}. {q.content}
