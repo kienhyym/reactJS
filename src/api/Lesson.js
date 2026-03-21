@@ -17,8 +17,15 @@ const getQuestionsByLecture = async (value) => {
     const response = await axios.get(URL_API);
     return response
 }
+const getOpenChapters = async () => {
+    const URL_API = `/v1/api/chapters/open`;
+    const response = await axios.get(URL_API);
+    return response
+}
+
 export {
     getLessonList,
     getLessonDetail,
-    getQuestionsByLecture
+    getQuestionsByLecture,
+    getOpenChapters
 }

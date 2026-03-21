@@ -16,7 +16,7 @@
 
 .lesson-container h1 {
 
- font-size: 32px;
+  font-size: 32px;
 }
 
 .lesson-grid {
@@ -91,4 +91,9 @@
   background: #2563eb;
 
   color: white;
+}
+
+.lesson-list-card h3 {
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }

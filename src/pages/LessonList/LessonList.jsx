@@ -1,36 +1,11 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState } from "react";
 import LessonCard from "./LessonCard/LessonCard";
 import "./LessonList.css";
-import { getLessonList } from "../../api/Lesson";
-import { message } from "antd";
-import LoadingPage from "../../component/loadingPage/LoadingPage";
-import { AuthContext } from "../../component/context/authContext";
-import { startApp } from "../../util/apiHeath";
 
 
-const LessonList = () => {
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true);
-  const { auth, setAtuh } = useContext(AuthContext)
-  const hasCalled = useRef(false);
-  useEffect(() => {
-    const getData = async () => {
-      setLoading(true)
-      if (hasCalled.current) return;
-      hasCalled.current = true;
-      const res = await startApp(getLessonList, auth, setAtuh)
-      if (res) {
-        setData(res.data);
-      } else {
-        message.error("lỗi lấy dữ liệu")
-      }
-      setLoading(false)
-    }
-    getData();
-  }, [])
-
+const LessonList = (params) => {
+  const data = params.data
   const [page, setPage] = useState(1);
-
   const pageSize = 8;
 
   const start = (page - 1) * pageSize;
@@ -38,17 +13,10 @@ const LessonList = () => {
   const current = data.slice(start, start + pageSize);
 
   const totalPages = Math.ceil(data.length / pageSize);
-  if (loading) {
-    return <LoadingPage title="📖 Danh sách bài giảng" />
-  }
+
   return (
-
-    <div className="lesson-container">
-
-      <h1 className="page-title">📖 Danh sách bài giảng</h1>
-
+    <>
       <div className="lesson-grid">
-
         {current.map((lesson) => (
           <LessonCard
             key={lesson._id}
@@ -73,8 +41,7 @@ const LessonList = () => {
         ))}
 
       </div>
-
-    </div>
+    </>
   );
 };
 
