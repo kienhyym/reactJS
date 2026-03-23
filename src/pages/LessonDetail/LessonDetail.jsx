@@ -3,11 +3,12 @@ import "./LessonDetail.css";
 import { useParams, useNavigate } from "react-router-dom";
 import lessons from "../../data/LessonListdata";
 import { useEffect, useState, useMemo } from "react";
-import { getLessonDetail, getLessonList } from "../../api/Lesson";
+import { getLectureDetailAndOpenlectures, getLessonDetail, getLessonList } from "../../api/Lesson";
 import { message } from "antd";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
 import { AuthContext } from "../../component/context/authContext";
 import { startApp } from "../../util/apiHeath";
+import LessonDetailCard from "./LessonDetailCard";
 
 const LessonDetail = () => {
     const { id } = useParams();
@@ -16,16 +17,20 @@ const LessonDetail = () => {
     const [datalessonList, setDataLessonList] = useState([])
     const [loading, setLoading] = useState(true);
 
-    // const lessonIndex = datalessonList.findIndex((l) => l._id === id);
+    const flatLessons = useMemo(() => {
+        return datalessonList.flatMap(chapter => chapter.lectures || []);
+    }, [datalessonList]);
 
-    const lessonIndex = useMemo(() => datalessonList.findIndex((l) => l._id === id), [datalessonList, id]);
+    const lessonIndex = useMemo(() => {
+        return flatLessons.findIndex(l => l._id === id);
+    }, [flatLessons, id]);
+
 
     const { auth, setAtuh } = useContext(AuthContext)
-    const hasCalled = useRef(false);
     useEffect(() => {
         const getData = async () => {
             setLoading(true)
-            const res = await startApp(() => getLessonDetail(id), auth, setAtuh)
+            const res = await startApp(() => getLectureDetailAndOpenlectures(id), auth, setAtuh)
             if (res) {
                 setData(res.data)
                 setDataLessonList(res.data.lectures)
@@ -53,14 +58,14 @@ const LessonDetail = () => {
     }
 
     const handlePrev = () => {
-        if (datalessonList.length > 0) {
-            navigate(`/lessons/${datalessonList[lessonIndex - 1]._id}`);
+        if (lessonIndex > 0) {
+            navigate(`/lessons/${flatLessons[lessonIndex - 1]._id}`);
         }
     };
 
     const handleNext = () => {
-        if (lessonIndex < lessons.length - 1) {
-            navigate(`/lessons/${datalessonList[lessonIndex + 1]._id}`);
+        if (lessonIndex < flatLessons.length - 1) {
+            navigate(`/lessons/${flatLessons[lessonIndex + 1]._id}`);
         }
     };
     const handleQuestion = (id) => {
@@ -92,7 +97,7 @@ const LessonDetail = () => {
                         <button
                             className="nav-btn"
                             onClick={handlePrev}
-                            disabled={lessonIndex === 0}
+                            disabled={lessonIndex <= 0}
                         >
                             ⬅ Bài trước
                         </button>
@@ -100,8 +105,8 @@ const LessonDetail = () => {
                         <button
                             className="nav-btn primary"
                             onClick={handleNext}
-                            disabled={lessonIndex === lessons.length - 1}
-                            style={lessonIndex === lessons.length - 1 ? { background: "#ccc", cursor: "not-allowed" } : {}}
+                            disabled={lessonIndex === -1 || lessonIndex >= flatLessons.length - 1}
+                            style={lessonIndex === -1 || lessonIndex >= flatLessons.length - 1 ? { background: '#e0e0e0',color:'black' } : {}}
                         >
                             Bài tiếp theo ➡
                         </button>
@@ -120,15 +125,7 @@ const LessonDetail = () => {
                 </button>
                 <br /> <br />
                 <h3>📚 Danh sách bài học</h3>
-                {datalessonList?.map((item) => (
-                    <div
-                        key={item._id}
-                        className={`sidebar-item ${item._id === id ? "active" : ""
-                            }`}
-                        onClick={() => navigate(`/lessons/${item._id}`)}
-                    >
-                        {item?.title}
-                    </div>
+                {datalessonList?.map((item) => (<LessonDetailCard key={item._id} data={item} />
                 ))}
             </div>
         </div>

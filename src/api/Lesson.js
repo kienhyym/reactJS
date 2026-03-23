@@ -23,9 +23,16 @@ const getOpenChapters = async () => {
     return response
 }
 
+const getLectureDetailAndOpenlectures = async (id) => {
+    const URL_API = `/v1/api/lecture/open/lectures/`+id;
+    const response = await axios.get(URL_API);
+    return response
+}
+
 export {
     getLessonList,
     getLessonDetail,
     getQuestionsByLecture,
-    getOpenChapters
+    getOpenChapters,
+    getLectureDetailAndOpenlectures
 }
