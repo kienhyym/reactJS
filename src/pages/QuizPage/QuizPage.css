@@ -219,3 +219,90 @@
   border-left:4px solid #ffa940;
 
 }
+
+.quiz-header{
+
+  display:flex;
+
+   justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:20px;
+
+  background:white;
+
+  padding:12px 20px;
+
+  border-radius:12px;
+
+  box-shadow:0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* số câu */
+
+.quiz-info{
+
+  font-weight:600;
+
+  color:#333;
+}
+
+/* timer */
+
+.quiz-timer{
+
+  font-weight:700;
+
+  color:#3A86FF;
+
+  font-size:18px;
+}
+
+.quiz-footer-fixed{
+
+  position: fixed;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 60px;
+
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
+
+  z-index: 1000;
+}
+
+/* text */
+
+.footer-left{
+  font-weight: 600;
+  color: #333;
+}
+
+.footer-right{
+  font-weight: 700;
+  color: #3A86FF;
+}
+.footer-right{
+  font-weight:700;
+  color:#3A86FF;
+}
+
+.footer-right.danger{
+  color:#ef4444;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink{
+  0%{opacity:1}
+  50%{opacity:0.4}
+  100%{opacity:1}
+}

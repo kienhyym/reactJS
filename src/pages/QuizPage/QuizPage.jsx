@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
 import "./QuizPage.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { message, Spin } from "antd";
 import { createAchievements } from "../../api/Achievements";
 import LoadingPage from "../../component/loadingPage/LoadingPage";
@@ -10,8 +10,8 @@ import { AuthContext } from "../../component/context/authContext";
 import { startApp } from "../../util/apiHeath";
 
 const QuizPage = () => {
-
   const { lessonId } = useParams();
+  const navigate = useNavigate();
   const id = lessonId
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -20,22 +20,42 @@ const QuizPage = () => {
   const [loading, setLoading] = useState(true);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [questionTitle, setQuestionTitle] = useState("");
-
+    const [examTitle, setExamTitle] = useState("");
+  const [time, setTime] = useState(null);
   const [studentInfo, setStudentInfo] = useState({
     name: "",
     class: ""
   });
   const { auth, setAtuh } = useContext(AuthContext)
+  const [started, setStarted] = useState(false);
+
   const hasCalled = useRef(false);
+  useEffect(() => {
+    setShowModal(true); // mở ngay khi vào trang
+  }, []);
+
+  const confirmStart = () => {
+    if (!studentInfo.name || !studentInfo.class) {
+      message.warning("Vui lòng nhập đầy đủ Tên và Lớp");
+      return;
+    }
+    setShowModal(false);
+    setStarted(true); // bắt đầu làm bài
+
+  };
+
   useEffect(() => {
     const getData = async () => {
       setLoading(true)
       if (hasCalled.current) return;
       hasCalled.current = true;
       const res = await startApp(() => getQuestionsByLecture(id), auth, setAtuh)
+      console.log("🚀 ~ getData ~ res:", res)
       if (res) {
         setQuestions(res.questions)
         setQuestionTitle(res.lectureTitle)
+        setTime(res?.examTime)
+        setExamTitle(res?.examTitle)
       } else {
         message.error("lỗi lấy dữ liệu")
       }
@@ -46,42 +66,42 @@ const QuizPage = () => {
 
   const isAllAnswered = () => {
 
-  return questions.every((q, qIndex) => {
+    return questions.every((q, qIndex) => {
 
-    const answer = answers[qIndex];
+      const answer = answers[qIndex];
 
-    if(q.type === "single"){
-      return answer !== undefined;
-    }
+      if (q.type === "single") {
+        return answer !== undefined;
+      }
 
-    if(q.type === "multiple"){
-      return Array.isArray(answer) && answer.length > 0;
+      if (q.type === "multiple") {
+        return Array.isArray(answer) && answer.length > 0;
+      }
+
+      return false;
+
+    });
+
+  };
+  const isUnanswered = (q, qIndex) => {
+
+    if (!submitted) {
+
+      const answer = answers[qIndex];
+
+      if (q.type === "single") {
+        return answer === undefined;
+      }
+
+      if (q.type === "multiple") {
+        return !answer || answer.length === 0;
+      }
+
     }
 
     return false;
 
-  });
-
-};
-const isUnanswered = (q, qIndex) => {
-
-  if(!submitted){
-
-    const answer = answers[qIndex];
-
-    if(q.type === "single"){
-      return answer === undefined;
-    }
-
-    if(q.type === "multiple"){
-      return !answer || answer.length === 0;
-    }
-
-  }
-
-  return false;
-
-};
+  };
   const handleChange = (qIndex, optIndex, type) => {
 
     if (type === "single") {
@@ -120,25 +140,16 @@ const isUnanswered = (q, qIndex) => {
   };
 
   const handleSubmit = () => {
-    if(!isAllAnswered()){
 
-    message.warning("⚠️ Vui lòng trả lời tất cả câu hỏi trước khi nộp!");
-
-    return;
-  }
-    setShowModal(true);
-
-  };
-  const confirmSubmit = () => {
-
-    if (!studentInfo.name || !studentInfo.class) {
-      message.warning("Vui lòng nhập đầy đủ Tên và Lớp");
+    if (!isAllAnswered()) {
+      message.warning("⚠️ Vui lòng trả lời tất cả câu hỏi!");
       return;
     }
-    funcSubmitTheTest()
 
+    funcSubmitTheTest(); // nộp luôn
 
   };
+
 
   const score = questions.reduce((total, q, qIndex) => {
 
@@ -200,154 +211,224 @@ const isUnanswered = (q, qIndex) => {
   }
   const antIcon = <LoadingOutlined style={{ fontSize: 14, color: 'white', marginRight: 10 }} spin />;
   const funcSubmitTheTest = useCallback(submitTheTest, [studentInfo, score])
+
+  const handleAutoSubmit = () => {
+
+    message.warning("⏰ Hết thời gian! Đang nộp bài...");
+
+    funcSubmitTheTest();
+
+  };
+  useEffect(() => {
+    if (time) {
+      if (!started || submitted) return;
+      if (time <= 0) {
+        handleAutoSubmit();
+        return;
+      }
+
+      const interval = setInterval(() => {
+        setTime(prev => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+
+
+  }, [time, submitted, started]);
+
+
+
+  const formatTime = (seconds) => {
+
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+
+    return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+
+  };
+
+  const answeredCount = questions.filter((q, i) => {
+
+    const answer = answers[i];
+
+    if (q.type === "single") {
+      return answer !== undefined;
+    }
+
+    if (q.type === "multiple") {
+      return Array.isArray(answer) && answer.length > 0;
+    }
+
+    return false;
+
+  }).length;
+
+  useEffect(() => {
+    if (time) {
+      if (time === 180) {
+        message.warning("⚠️ Còn 3 phút!");
+      }
+    }
+  }, [time]);
+
   if (loading) {
     return <LoadingPage title="Bài kiểm tra" style={{}} />
   }
   return (
+    <>
+      <div className="quiz-container">
+        <h1 className="page-title">Bài kiểm tra</h1>
+        <h3 style={{ margin: '20px 0px' }}>{questionTitle} ({examTitle})</h3>
 
-    <div className="quiz-container">
+        {questions?.map((q, qIndex) => (
+          <div key={q._id} className={`question-block ${isUnanswered(q, qIndex) ? "unanswered" : ""}`}>
 
-      <h1 className="page-title">Bài kiểm tra</h1>
-      <h3 style={{ margin: '20px 0px' }}>{questionTitle}</h3>
-      {questions?.map((q, qIndex) => (
-        <div key={q._id} className={`question-block ${isUnanswered(q,qIndex) ? "unanswered" : ""}`}>
+            <h3>
+              {qIndex + 1}. {q.content}
+            </h3>
 
-          <h3>
-            {qIndex + 1}. {q.content}
-          </h3>
+            {q.image && (
+              <img
+                src={q.image}
+                alt="question"
+                className="question-image"
+              />
+            )}
+            <h5 className="question-type" style={{ margin: `10px 10px`, fontWeight: 'normal', fontStyle: 'italic' }}>
+              {q.type === "multiple" ? "(Chọn nhiều đáp án)" : "(Chọn 1 đáp án)"}
+            </h5>
 
-          {q.image && (
-            <img
-              src={q.image}
-              alt="question"
-              className="question-image"
-            />
-          )}
-          <h5 className="question-type" style={{ margin: `10px 10px`, fontWeight: 'normal', fontStyle: 'italic' }}>
-            {q.type === "multiple" ? "(Chọn nhiều đáp án)" : "(Chọn 1 đáp án)"}
-          </h5>
-
-          {q.options.map((opt, optIndex) => (
-            <label
-              key={opt._id}
-              className={`option-label
+            {q.options.map((opt, optIndex) => (
+              <label
+                key={opt._id}
+                className={`option-label
 ${submitted && opt.isCorrect ? "correct" : ""}
 ${submitted &&
-                  (
-                    q.type === "multiple"
-                      ? (answers[qIndex] || []).includes(optIndex) && !opt.isCorrect
-                      : answers[qIndex] === optIndex && !opt.isCorrect
-                  )
-                  ? "wrong" : ""}
+                    (
+                      q.type === "multiple"
+                        ? (answers[qIndex] || []).includes(optIndex) && !opt.isCorrect
+                        : answers[qIndex] === optIndex && !opt.isCorrect
+                    )
+                    ? "wrong" : ""}
 `}
-            >
-
-              <input
-                type={q.type === "multiple" ? "checkbox" : "radio"}
-                name={`question-${qIndex}`}
-                checked={
-                  q.type === "multiple"
-                    ? (answers[qIndex] || []).includes(optIndex)
-                    : answers[qIndex] === optIndex
-                }
-                onChange={() => handleChange(qIndex, optIndex, q.type)}
-                disabled={submitted}
-              />
-              <div className="option-content">
-                {opt.image && (
-                  <img
-                    src={opt.image}
-                    alt="hình ảnh"
-                    className="option-image"
-                  />
-                )}
-                <p>{opt.content}</p>
-              </div>
-            </label >
-          ))}
-
-        </div>
-
-      ))}
-
-      {!submitted && (
-
-        <button
-          className="submit-btn"
-          onClick={handleSubmit}
-        >
-          Nộp bài
-        </button>
-
-      )}
-
-      {submitted && (
-
-        <div className="result-box">
-          🎉 Bạn đạt {score} / {questions?.length} điểm
-        </div>
-
-      )}
-      {showModal && (
-
-        <div className="quiz-modal">
-
-          <div className="quiz-modal-content">
-
-            <h2>Thông tin học sinh</h2>
-
-            <input
-              type="text"
-              placeholder="Nhập họ và tên"
-              value={studentInfo.name}
-              onChange={(e) =>
-                setStudentInfo({
-                  ...studentInfo,
-                  name: e.target.value
-                })
-              }
-            />
-
-            <input
-              type="text"
-              placeholder="Nhập lớp"
-              value={studentInfo.class}
-              onChange={(e) =>
-                setStudentInfo({
-                  ...studentInfo,
-                  class: e.target.value
-                })
-              }
-            />
-
-            <div className="modal-buttons">
-
-              <button
-                className="cancel-btn"
-                onClick={() => setShowModal(false)}
-                disabled={loadingBtn}
               >
-                Huỷ
-              </button>
 
-              <button
-                className="confirm-btn"
-                onClick={confirmSubmit}
-                disabled={loadingBtn}
-              >
-                {loadingBtn && <Spin size="small" indicator={antIcon} />}
-                Nộp bài
-              </button>
-
-            </div>
+                <input
+                  type={q.type === "multiple" ? "checkbox" : "radio"}
+                  name={`question-${qIndex}`}
+                  checked={
+                    q.type === "multiple"
+                      ? (answers[qIndex] || []).includes(optIndex)
+                      : answers[qIndex] === optIndex
+                  }
+                  onChange={() => handleChange(qIndex, optIndex, q.type)}
+                  disabled={submitted}
+                />
+                <div className="option-content">
+                  {opt.image && (
+                    <img
+                      src={opt.image}
+                      alt="hình ảnh"
+                      className="option-image"
+                    />
+                  )}
+                  <p>{opt.content}</p>
+                </div>
+              </label >
+            ))}
 
           </div>
 
+        ))}
+
+        {!submitted && (
+
+          <button
+            className="submit-btn"
+            onClick={handleSubmit}
+          >
+            Nộp bài
+          </button>
+
+        )}
+
+        {submitted && (
+
+          <div className="result-box">
+            🎉 Bạn đạt {score} / {questions?.length} điểm
+          </div>
+
+        )}
+        {showModal && (
+
+          <div className="quiz-modal">
+
+            <div className="quiz-modal-content">
+
+              <h2>Thông tin học sinh</h2>
+
+              <input
+                type="text"
+                placeholder="Nhập họ và tên"
+                value={studentInfo.name}
+                onChange={(e) =>
+                  setStudentInfo({
+                    ...studentInfo,
+                    name: e.target.value
+                  })
+                }
+              />
+
+              <input
+                type="text"
+                placeholder="Nhập lớp"
+                value={studentInfo.class}
+                onChange={(e) =>
+                  setStudentInfo({
+                    ...studentInfo,
+                    class: e.target.value
+                  })
+                }
+              />
+
+              <div className="modal-buttons">
+
+                <button
+                  className="cancel-btn"
+                  onClick={() => {
+                    setShowModal(false);
+                    navigate(-1);
+                  }}
+                >
+                  Huỷ
+                </button>
+
+                <button
+                  className="confirm-btn"
+                  onClick={confirmStart}
+                >
+                  {loadingBtn && <Spin size="small" indicator={antIcon} />}
+                  Làm bài
+                </button>
+              </div>
+            </div>
+          </div>
+
+        )}
+      </div>
+      <br /><br /><br /><br />
+      <div className="quiz-footer-fixed">
+        <div className="footer-left">
+          📊 {answeredCount} / {questions.length} câu
         </div>
+        {time && 
+        <div className={`footer-right ${time < 180 ? "danger" : ""}`}>
+          ⏱ {formatTime(time)}
+        </div>}
+      </div>
 
-      )}
-    </div>
-
+    </>
   );
 
 };
