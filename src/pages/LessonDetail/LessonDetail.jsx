@@ -116,14 +116,14 @@ const LessonDetail = () => {
 
             {/* Sidebar */}
             <div className="lesson-sidebar">
-                <h3>✍ Câu hỏi ôn tập</h3>
+                {/* <h3>✍ Câu hỏi ôn tập</h3>
                 <button
                     className="question-btn"
                     onClick={() => handleQuestion(data?.lecture?._id)}
                 >
                     Thực hiện Làm bài ôn tập ➡
                 </button>
-                <br /> <br />
+                <br /> <br /> */}
                 <h3>📚 Danh sách bài học</h3>
                 {datalessonList?.map((item) => (<LessonDetailCard key={item._id} data={item} />
                 ))}

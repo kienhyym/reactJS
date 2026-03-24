@@ -1,0 +1,109 @@
+.exam-card{
+
+  background:white;
+
+  border-radius:20px;
+
+  padding:25px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+  margin-bottom:30px;
+
+}
+
+/* section */
+
+.exam-section{
+
+  margin-bottom:20px;
+}
+
+.exam-section h4{
+
+  margin-bottom:10px;
+
+  font-size:16px;
+
+  color:#333;
+}
+
+/* item */
+
+.exam-item{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  padding:12px 15px;
+
+  border-radius:10px;
+
+  transition:0.2s;
+
+}
+
+.exam-item:hover{
+
+  background:#f5f7ff;
+}
+
+/* text */
+
+.exam-item p{
+
+  margin:0;
+
+  font-size:15px;
+
+  color:#444;
+}
+
+/* button */
+
+.exam-item button{
+
+  background:#eee;
+
+  border:none;
+
+  padding:6px 14px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  transition:0.2s;
+
+}
+
+/* primary button */
+
+.exam-item button.primary{
+
+  background:linear-gradient(135deg,#2EC4C7,#3A86FF);
+
+  color:white;
+}
+
+/* primary button */
+
+.exam-item button.orange{
+
+  background: linear-gradient(135deg, #ff9a00, #ff2d55);
+
+  color:white;
+}
+
+
+/* hover */
+
+.exam-item button:hover{
+
+  transform:scale(1.05);
+
+  opacity:0.9;
+}

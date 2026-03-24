@@ -32,6 +32,10 @@
 .question-card:hover {
   transform: translateY(-6px);
 }
+.question-info  {
+ width: '100%';
+ flex: 1;
+}
 
 .question-info h3 {
   margin-bottom: 8px;
@@ -67,8 +71,6 @@
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  margin-bottom: 40px;
 
 }
 

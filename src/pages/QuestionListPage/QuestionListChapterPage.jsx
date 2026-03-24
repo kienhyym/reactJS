@@ -31,7 +31,7 @@ const QuestionListChapterPage = () => {
         fetchData()
     }, [])
     if (loading) {
-        return <LoadingPage title="✍ Câu hỏi ôn tập theo bài" style={{
+        return <LoadingPage title="✍ Câu hỏi ôn tập" style={{
             background: `linear-gradient(
     135deg,
     #e0f7fa,
@@ -40,12 +40,11 @@ const QuestionListChapterPage = () => {
     }
     return (
         <div className="question-container">
-            <h1 className="page-title">✍ Câu hỏi ôn tập theo bài</h1>
+            <h1 className="page-title">✍ Câu hỏi ôn tập</h1>
             {data?.map((item, index) => {
                 return (
                     <div className="question-grid" key={item._id}>
-                        <br />
-                        <h3 >{item.title} {item.name}</h3>
+                        <h3  style={{textTransform:'uppercase'}}>{item?.title} {item?.name}</h3>
                         <QuestionListPage data={item.lectures} />
                     </div>
                 )
