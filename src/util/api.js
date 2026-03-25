@@ -34,4 +34,10 @@ const homeApi = async () => {
     return response
 }
 
-export { createrUserApi, loginApi, getUsersApi, homeApi }
+const getPdf = async () => {
+    const URL_API = `/v1/api/pdf`;
+    const response = await axios.get(URL_API);
+    return response
+}
+
+export { createrUserApi, loginApi, getUsersApi, homeApi ,getPdf}
