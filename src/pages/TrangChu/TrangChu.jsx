@@ -15,7 +15,6 @@ import card2 from "../../../public/image/card2.png";
 import card3 from "../../../public/image/card3.png";
 import card4 from "../../../public/image/card4.png";
 import useWindowSize from "../../util/useWindowSize";
-import ModalExtend from "./ModalExtend";
 import { useNavigate } from "react-router-dom";
 
 const TrangChu = () => {
@@ -40,11 +39,6 @@ const TrangChu = () => {
                 <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.2, left: - width * 0.13, bottom: -width * 0.04 }} />
                 <img src={glass} alt="glass" style={{ position: 'absolute', width: width * 0.17, right: -width * 0.1, bottom: -width * 0.04 }} />
             </div>
-            <ModalExtend
-                open={openModalExtend}
-                onCancel={() => setOpenModalExtend(false)}
-                onSubmit={()=>{}}
-            />
         </div>
     );
 };
