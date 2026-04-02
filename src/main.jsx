@@ -16,6 +16,8 @@ import KnowledgePage from './pages/Knowledge/KnowledgePage.jsx'
 import ExtendPage from './pages/ExtendPage/ExtendPage.jsx'
 import LessonListChapter from './pages/LessonList/LessonListChapter.jsx'
 import QuestionListChapterPage from './pages/QuestionListPage/QuestionListChapterPage.jsx'
+import TrangChu from './pages/TrangChu/TrangChu.jsx'
+import MoRong from './screens/MoRong/MoRong.jsx'
 
 
 const router = createBrowserRouter([
@@ -57,9 +59,17 @@ const router = createBrowserRouter([
         path: "extend",
         element: <ExtendPage />
       },
+
     ]
   },
-
+  {
+    path: "trangchu",
+    element: <TrangChu />
+  },
+  {
+    path: "morong",
+    element: <MoRong />
+  },
   {
     path: 'register',
     element: <RegisterPage />
