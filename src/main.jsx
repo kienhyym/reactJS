@@ -18,6 +18,7 @@ import LessonListChapter from './pages/LessonList/LessonListChapter.jsx'
 import QuestionListChapterPage from './pages/QuestionListPage/QuestionListChapterPage.jsx'
 import TrangChu from './pages/TrangChu/TrangChu.jsx'
 import MoRong from './screens/MoRong/MoRong.jsx'
+import TongHop from './screens/TongHop/TongHop.jsx'
 
 
 const router = createBrowserRouter([
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "morong",
     element: <MoRong />
+  },
+   {
+    path: "tonghop",
+    element: <TongHop />
   },
   {
     path: 'register',

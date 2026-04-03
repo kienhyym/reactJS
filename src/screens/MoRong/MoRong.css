@@ -58,20 +58,20 @@ body {
 }
 
 /* CARDS */
-.content {
+.content-extend {
     overflow-y: scroll;
     scrollbar-width: none;
     /* Firefox */
 }
 
-.content img:hover {
+.content-extend img:hover {
     transform: translateX(10px);
 }
 
-.content div p {
+.content-extend div p {
     position: absolute;
     font-weight: bold;
-    color: brown;
+    color:brown;
 }
 
 

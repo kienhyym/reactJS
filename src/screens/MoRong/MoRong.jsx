@@ -56,7 +56,7 @@ const MoRong = () => {
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
-                <div className="content" style={{ width: width * 0.5 }} >
+                <div className="content-extend" style={{ width: width * 0.5 }} >
 
                     {data?.map((item,index) => {
                         const imageIndex = (index % 4) + 1; // 👈 lặp từ 1 -> 4

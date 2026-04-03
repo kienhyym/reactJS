@@ -31,7 +31,7 @@ const TrangChu = () => {
                 <div className="cards">
                     <Card img={card1} onClick={() => navigate("/lessons")} />
                     <Card img={card2} onClick={() => navigate("/quiz")} />
-                    <Card img={card4} onClick={() => navigate("/knowledge")} />
+                    <Card img={card4} onClick={() => navigate("/tonghop")} />
                     <Card img={card3} onClick={() => navigate("/morong")}/>
                 </div>
                 <Periodic />
