@@ -19,6 +19,7 @@ import QuestionListChapterPage from './pages/QuestionListPage/QuestionListChapte
 import TrangChu from './pages/TrangChu/TrangChu.jsx'
 import MoRong from './screens/MoRong/MoRong.jsx'
 import TongHop from './screens/TongHop/TongHop.jsx'
+import DeThi from './screens/DeThi/DeThi.jsx'
 
 
 const router = createBrowserRouter([
@@ -71,9 +72,13 @@ const router = createBrowserRouter([
     path: "morong",
     element: <MoRong />
   },
-   {
+  {
     path: "tonghop",
     element: <TongHop />
+  },
+  {
+    path: "dethi",
+    element: <DeThi />
   },
   {
     path: 'register',

@@ -22,6 +22,11 @@ const getOpenChapters = async () => {
     const response = await axios.get(URL_API);
     return response
 }
+const getOpenChaptersNoLecture = async () => {
+    const URL_API = `/v1/api/chapters/open/no-lecture`;
+    const response = await axios.get(URL_API);
+    return response
+}
 
 const getLectureDetailAndOpenlectures = async (id) => {
     const URL_API = `/v1/api/lecture/open/lectures/`+id;
@@ -34,5 +39,6 @@ export {
     getLessonDetail,
     getQuestionsByLecture,
     getOpenChapters,
-    getLectureDetailAndOpenlectures
+    getLectureDetailAndOpenlectures,
+    getOpenChaptersNoLecture
 }

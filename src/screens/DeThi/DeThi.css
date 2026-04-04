@@ -1,0 +1,155 @@
+.header {
+    position: absolute;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    padding-top: 20px;
+    position: fixed;
+}
+
+.home {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    background: radial-gradient(circle at 20% 20%, #FFE4E1 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, #DCD0FF 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, #B0E0E6 0%, transparent 50%),
+        #FFFFFF;
+}
+
+
+
+.item-chapter {
+    /* border-radius: 10px; */
+    position: relative;
+    /* overflow: hidden; */
+    /* cursor: pointer; */
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+    /* flex-shrink: 0; */
+    /* 👈 QUAN TRỌNG */
+    /* background-position-x: right; */
+}
+
+
+
+
+/* hover card */
+.item-chapter:hover {
+    transform: translateX(-10px);
+}
+
+.content-exam {
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.content-exam::-webkit-scrollbar {
+    display: none;
+}
+
+.item-chapters {
+    display: flex;
+    margin-top: 20px;
+}
+
+.item-chapters-left {
+    width: 25%;
+}
+
+.item-chapters-left img {
+    aspect-ratio: 636 /564;
+    width: 100%;
+}
+
+.item-chapters-right {
+    width: 75%;
+}
+
+.item-chapters-right-top p {
+    position: absolute;
+    top: 24%;
+    left: 6%;
+    right: 8%;
+
+    font-weight: bold;
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.item-chapter p {
+    position: absolute;
+    top: 28%;
+    left: 28%;
+    right: 22%;
+    font-weight: bold;
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-chapters-right-top {
+    position: relative;
+}
+
+.info-exam {
+    position: absolute;
+    top: 66%;
+    left: 32%;
+    right: 8%;
+
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: flex;
+}
+
+.lecute-title {
+    position: absolute;
+    top: 50%;
+    left: 32%;
+    right: 8%;
+
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.item-label {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #FFFFFF;
+    z-index: 10;
+}
+
+.content-chapter {
+    width: 95%;
+    float: right;
+}
+
+.item-exam {
+    position: relative;
+}

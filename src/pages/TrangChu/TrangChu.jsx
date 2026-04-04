@@ -30,7 +30,7 @@ const TrangChu = () => {
                 <Hero />
                 <div className="cards">
                     <Card img={card1} onClick={() => navigate("/lessons")} />
-                    <Card img={card2} onClick={() => navigate("/quiz")} />
+                    <Card img={card2} onClick={() => navigate("/dethi")} />
                     <Card img={card4} onClick={() => navigate("/tonghop")} />
                     <Card img={card3} onClick={() => navigate("/morong")}/>
                 </div>
