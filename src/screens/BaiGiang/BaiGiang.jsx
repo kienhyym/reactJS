@@ -70,9 +70,9 @@ const BaiGiang = () => {
         }
     };
 
-    // if (loading) {
-    //     return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
-    // }
+    if (loading) {
+        return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
+    }
     return (
         <div className="lecture-container" style={{ paddingTop: width * 0.052, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <div className="lecture-left">
