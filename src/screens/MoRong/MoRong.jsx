@@ -12,7 +12,7 @@ import Header from "./Header";
 import { startApp } from "../../util/apiHeath";
 import { getExtend } from "../../api/Extend";
 import { AuthContext } from "../../component/context/authContext";
-import LoadingPage from "../../component/loadingPage/LoadingPage";
+import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
 
 const MoRong = () => {
     const { width, height } = useWindowSize();
@@ -49,9 +49,6 @@ const MoRong = () => {
             return initWidth * 0.5 * 322 / 2569 * 0.25;
         }
     }, [])
-    if (loading) {
-        return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
-    }
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
@@ -71,6 +68,9 @@ const MoRong = () => {
                 <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.2, left: - width * 0.16, bottom: -width * 0.04 }} />
                 <img src={thignhiem} alt="thignhiem" style={{ position: 'absolute', width: width * 0.17, right: -width * 0.16, bottom: -width * 0.04 }} />
             </div>
+            {
+                loading && <TrangChoDoi title="🔬Trang chủ" />
+            }
         </div >
     );
 };

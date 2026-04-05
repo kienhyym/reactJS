@@ -1,19 +1,14 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import background from "/image/background.png";
 import bgcontent from "/image/bg-content.png";
-import table from "/image/table2.png";
-import book from "/image/book.png";
-import thignhiem from "/image/robo.png";
 import useWindowSize from "../../util/useWindowSize";
 import Header from "./Header";
 import { startApp } from "../../util/apiHeath";
 import { AuthContext } from "../../component/context/authContext";
-import LoadingPage from "../../component/loadingPage/LoadingPage";
-import { getKnowledge } from "../../api/Knowledge";
 import "./BaiGiang.css";
 import { getLectureDetailAndOpenlectures } from "../../api/Lesson";
 import { useNavigate, useParams } from "react-router-dom";
-import LessonDetailCard from "../../pages/LessonDetail/LessonDetailCard";
+import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
 const BaiGiang = () => {
     const { id } = useParams();
     const { width, height } = useWindowSize();
@@ -70,9 +65,6 @@ const BaiGiang = () => {
         }
     };
 
-    if (loading) {
-        return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
-    }
     return (
         <div className="lecture-container" style={{ paddingTop: width * 0.052, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <div className="lecture-left">
@@ -162,6 +154,9 @@ const BaiGiang = () => {
                 </div>
                 <img className="list-lecture-footer" src={`/image/footer-lectures.png`} alt="footer" />
             </div>
+            {
+                loading && <TrangChoDoi title="🔬Trang chủ" />
+            }
         </div >
     );
 };

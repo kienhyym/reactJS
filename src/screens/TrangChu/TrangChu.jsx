@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../component/context/authContext";
 import { getLectureOpenFisrt } from "../../api/Lesson";
 import { startApp } from "../../util/apiHeath";
+import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
 
 const TrangChu = () => {
     const navigate = useNavigate();
@@ -46,8 +47,8 @@ const TrangChu = () => {
     return (
         <div className="container" style={{ backgroundImage: `url(${background})` }}>
             <div className="home" style={{ marginTop: width * 0.055 }}>
-                <img src={left} alt="left" className="left" style={{ width: width * 0.1, left: - width * 0.065 }} />
-                <img src={right} alt="right" className="right" style={{ width: width * 0.1, right: - width * 0.07 }} />
+                <img src={left} alt="left" className="left" style={{ width: width * 0.1, left: - width * 0.055 }} />
+                <img src={right} alt="right" className="right" style={{ width: width * 0.1, right: - width * 0.06 }} />
                 <Header />
                 <Hero />
                 <div className="cards">
@@ -61,6 +62,10 @@ const TrangChu = () => {
                 <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.2, left: - width * 0.13, bottom: -width * 0.04 }} />
                 <img src={glass} alt="glass" style={{ position: 'absolute', width: width * 0.17, right: -width * 0.1, bottom: -width * 0.04 }} />
             </div>
+
+            {
+                loading && <TrangChoDoi title="🔬Trang chủ" />
+            }
         </div>
     );
 };

@@ -1,0 +1,64 @@
+.loading-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items:start;
+
+  background: transparent;
+  z-index: 9999;
+}
+
+.loading-content {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+/* atom animation */
+
+.atom-loader {
+  /* margin: auto; */
+}
+
+
+
+@keyframes rotate {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+/* text */
+
+.loading-content h2 {
+
+  color: #333;
+
+  margin-bottom: 10px;
+}
+
+.loading-content p {
+
+  color: #666;
+}
+
+
+.page-title {
+
+  font-weight: 700;
+
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 40px;
+}
+
+.loading-content h1 {
+  font-size: 32px;
+
+}

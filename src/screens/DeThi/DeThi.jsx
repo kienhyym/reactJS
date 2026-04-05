@@ -9,11 +9,10 @@ import useWindowSize from "../../util/useWindowSize";
 import Header from "./Header";
 import { startApp } from "../../util/apiHeath";
 import { AuthContext } from "../../component/context/authContext";
-import LoadingPage from "../../component/loadingPage/LoadingPage";
-import { getKnowledge } from "../../api/Knowledge";
+import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
 import "./DeThi.css";
 import KnowledgePdfCard from "../../pages/Knowledge/KnowledgePdfCard/KnowledgePdfCard";
-import { getOpenChapters, getOpenChaptersNoLecture } from "../../api/Lesson";
+import {  getOpenChaptersNoLecture } from "../../api/Lesson";
 const DeThi = () => {
     const { width, height } = useWindowSize();
     const [data, setData] = useState([]);
@@ -51,9 +50,6 @@ const DeThi = () => {
             return initWidth * 0.5 * 0.045;
         }
     }, [])
-    // if (loading) {
-    //     return <LoadingPage title="🔬 Danh sách video thí nghiệm" />
-    // }
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
@@ -148,6 +144,9 @@ const DeThi = () => {
                 }
 
             </Modal>
+            {
+                loading && <TrangChoDoi title="🔬Trang chủ" />
+            }
         </div >
     );
 };
