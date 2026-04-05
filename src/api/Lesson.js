@@ -34,11 +34,20 @@ const getLectureDetailAndOpenlectures = async (id) => {
     return response
 }
 
+const getLectureOpenFisrt = async () => {
+    const URL_API = `/v1/api/lecture/open/first`;
+    const response = await axios.get(URL_API);
+    return response
+}
+
+
+
 export {
     getLessonList,
     getLessonDetail,
     getQuestionsByLecture,
     getOpenChapters,
     getLectureDetailAndOpenlectures,
-    getOpenChaptersNoLecture
+    getOpenChaptersNoLecture,
+    getLectureOpenFisrt
 }

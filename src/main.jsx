@@ -20,6 +20,7 @@ import TrangChu from './pages/TrangChu/TrangChu.jsx'
 import MoRong from './screens/MoRong/MoRong.jsx'
 import TongHop from './screens/TongHop/TongHop.jsx'
 import DeThi from './screens/DeThi/DeThi.jsx'
+import BaiGiang from './screens/BaiGiang/BaiGiang.jsx'
 
 
 const router = createBrowserRouter([
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
   {
     path: "dethi",
     element: <DeThi />
+  },
+  {
+    path: "baigiang/:id",
+    element: <BaiGiang />
   },
   {
     path: 'register',

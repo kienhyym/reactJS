@@ -2,7 +2,7 @@ import Header from "./Header";
 import Hero from "./Hero";
 import Periodic from "./Periodic";
 import "./TrangChu.css";
-import React from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import background from "../../../public/image/background.png";
 import left from "../../../public/image/left.png";
 import right from "../../../public/image/right.png";
@@ -16,10 +16,32 @@ import card3 from "../../../public/image/card3.png";
 import card4 from "../../../public/image/card4.png";
 import useWindowSize from "../../util/useWindowSize";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../component/context/authContext";
+import { getLectureOpenFisrt } from "../../api/Lesson";
+import { startApp } from "../../util/apiHeath";
 
 const TrangChu = () => {
     const navigate = useNavigate();
-    const [openModalExtend, setOpenModalExtend] = React.useState(false);
+    const [data, setData] = React.useState(null);
+    const [loading, setLoading] = useState(true);
+
+    const { auth, setAtuh } = useContext(AuthContext)
+    const hasCalled = useRef(false);
+    useEffect(() => {
+        const getData = async () => {
+            setLoading(true)
+            if (hasCalled.current) return;
+            hasCalled.current = true;
+            const res = await startApp(getLectureOpenFisrt, auth, setAtuh)
+            if (res) {
+                setData(res.data);
+            } else {
+                message.error("lỗi lấy dữ liệu")
+            }
+            setLoading(false)
+        }
+        getData();
+    }, [])
     const { width } = useWindowSize();
     return (
         <div className="container" style={{ backgroundImage: `url(${background})` }}>
@@ -29,10 +51,10 @@ const TrangChu = () => {
                 <Header />
                 <Hero />
                 <div className="cards">
-                    <Card img={card1} onClick={() => navigate("/lessons")} />
+                    <Card img={card1} onClick={() => navigate("/baigiang/" + data?._id)} />
                     <Card img={card2} onClick={() => navigate("/dethi")} />
                     <Card img={card4} onClick={() => navigate("/tonghop")} />
-                    <Card img={card3} onClick={() => navigate("/morong")}/>
+                    <Card img={card3} onClick={() => navigate("/morong")} />
                 </div>
                 <Periodic />
                 <img src={table} alt="table" style={{ position: 'absolute', width: width, bottom: -width * 0.06 }} />
