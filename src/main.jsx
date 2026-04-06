@@ -22,12 +22,13 @@ import TongHop from './screens/TongHop/TongHop.jsx'
 import DeThi from './screens/DeThi/DeThi.jsx'
 import BaiGiang from './screens/BaiGiang/BaiGiang.jsx'
 import LamBai from './screens/LamBai/LamBai.jsx'
+import isMobile from './util/usePlatform.js'
 
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: isMobile ? <TrangChu /> : <App />,
     children: [
       {
         index: true,
