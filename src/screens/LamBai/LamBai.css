@@ -1,0 +1,103 @@
+.header {
+    position: absolute;
+    z-index: 0;
+}
+
+.header p {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    right: 3%;
+    display: -webkit-box;
+    z-index: 11;
+    -webkit-line-clamp: 1;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.header span{
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    right: 3%;
+    display: -webkit-box;
+    z-index: 11;
+    -webkit-line-clamp: 1;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.container-quiz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    padding-top: 20px;
+    position: fixed;
+    z-index: 10;
+}
+
+.home-quiz {
+    position: relative;
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    justify-items: center;
+    z-index: 10;
+}
+
+.content-quiz {
+    overflow-y: auto;
+    scrollbar-width: none;
+    z-index: 10;
+}
+
+.question-block {
+    background: radial-gradient(circle at 20% 20%, #FFE4E1 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, #DCD0FF 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, #B0E0E6 0%, transparent 50%),
+        #FFFFFF;
+
+}
+
+.quiz-navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.review-container {
+    margin-top: 30px;
+}
+
+.review-question {
+    background: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.review-option {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+}
+
+/* đáp án đúng */
+.review-option.correct {
+    background: #e8f5e9;
+    border: 1px solid #4caf50;
+}
+
+/* chọn sai */
+.review-option.wrong {
+    background: #fdecea;
+    border: 1px solid #f44336;
+}

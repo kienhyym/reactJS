@@ -12,9 +12,11 @@ import { AuthContext } from "../../component/context/authContext";
 import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
 import "./DeThi.css";
 import KnowledgePdfCard from "../../pages/Knowledge/KnowledgePdfCard/KnowledgePdfCard";
-import {  getOpenChaptersNoLecture } from "../../api/Lesson";
+import { getOpenChaptersNoLecture } from "../../api/Lesson";
+import { useNavigate } from "react-router-dom";
 const DeThi = () => {
     const { width, height } = useWindowSize();
+    const navigate = useNavigate()
     const [data, setData] = useState([]);
     const hasCalled = React.useRef(false);
     const { auth, setAtuh } = useContext(AuthContext)
@@ -72,7 +74,7 @@ const DeThi = () => {
                                                 item.exams?.map((exam, index) => {
                                                     const imageIndex = (index % 4) + 1;
                                                     return (
-                                                        <div className="item-chapter" key={exam._id} >
+                                                        <div className="item-chapter" key={exam._id} onClick={() => navigate("/lambai/" + exam._id)}>
                                                             <img src={`/image/exam${imageIndex}.png`} width={"100%"} ></img>
                                                             <p style={{ fontSize: width * 0.01, height: "16%", textTransform: 'uppercase' }}>{exam.titleLecture}</p>
                                                             <span className="lecute-title" style={{ fontSize: width * 0.009, textTransform: 'lowercase' }}>{exam.title}</span>
