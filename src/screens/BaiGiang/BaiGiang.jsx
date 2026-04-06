@@ -68,6 +68,8 @@ const BaiGiang = () => {
 
     return (
         <div className="lecture-container" style={{ paddingTop: width * 0.052, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
+            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo"  onClick={()=>navigate(-1)}/>
+
             <div className="lecture-left">
                 <Header title={data?.lecture?.title} />
                 <div
@@ -126,10 +128,8 @@ const BaiGiang = () => {
                 </div>
             </div>
             <div className="lecture-right" style={{ width: width * 0.2, height: height * 0.88, backgroundImage: `url(${bgcontent})`, backgroundSize: "cover", backgroundPosition: "left" }}>
-                
-                {/* <img className="list-lecture-header" src={`/image/header-lectures.png`} alt="header" /> */}
-               <HeaderRight/>
-                <div className="lecture-right-container" style={{height: height * 0.77}}>
+                <HeaderRight />
+                <div className="lecture-right-container" style={{ height: height * 0.77 }}>
                     {datalessonList?.map((itemlc, indexlc) => {
                         return (
                             <div className="list-lecture" key={itemlc._id}>

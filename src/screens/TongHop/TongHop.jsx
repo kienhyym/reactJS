@@ -13,6 +13,7 @@ import { getKnowledge } from "../../api/Knowledge";
 import "./TongHop.css";
 import KnowledgePdfCard from "../../pages/Knowledge/KnowledgePdfCard/KnowledgePdfCard";
 import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
+import { useNavigate } from "react-router-dom";
 const TongHop = () => {
     const { width, height } = useWindowSize();
     const [data, setData] = useState([]);
@@ -21,6 +22,7 @@ const TongHop = () => {
     const [loading, setLoading] = useState(true);
     const [previewImage, setPreviewImage] = useState(null);
     const containerRef = useRef();
+    const navigate = useNavigate();
     const getData = async () => {
         setLoading(true)
         if (hasCalled.current) return;
@@ -51,6 +53,8 @@ const TongHop = () => {
     }, [])
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
+            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
+
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
                 <div className="content-knowledge" style={{ width: width * 0.5 }} >

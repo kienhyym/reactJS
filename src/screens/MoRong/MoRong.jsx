@@ -13,6 +13,7 @@ import { startApp } from "../../util/apiHeath";
 import { getExtend } from "../../api/Extend";
 import { AuthContext } from "../../component/context/authContext";
 import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
+import { useNavigate } from "react-router-dom";
 
 const MoRong = () => {
     const { width, height } = useWindowSize();
@@ -20,7 +21,7 @@ const MoRong = () => {
     const hasCalled = React.useRef(false);
     const { auth, setAtuh } = useContext(AuthContext)
     const [loading, setLoading] = useState(true);
-
+    const navigate = useNavigate()
     const getData = async () => {
         setLoading(true)
         if (hasCalled.current) return;
@@ -51,15 +52,16 @@ const MoRong = () => {
     }, [])
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
+            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
                 <div className="content-extend" style={{ width: width * 0.5 }} >
 
-                    {data?.map((item,index) => {
+                    {data?.map((item, index) => {
                         const imageIndex = (index % 4) + 1; // 👈 lặp từ 1 -> 4
                         return (<a key={item._id} href={item?.link} target="_blank"
                             rel="noreferrer"><div style={{ position: "relative" }} >
-                                <img src={`/image/extend-card${imageIndex}.png`}alt="header" style={{ width: width * 0.5, marginTop: 10 }} ></img>
+                                <img src={`/image/extend-card${imageIndex}.png`} alt="header" style={{ width: width * 0.5, marginTop: 10 }} ></img>
                                 <p style={{ fontSize: width * 0.009, top, left: width * 0.13, textTransform: 'lowercase' }}>{item.title}</p>
                             </div></a>)
                     })}

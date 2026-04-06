@@ -54,6 +54,7 @@ const DeThi = () => {
     }, [])
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
+            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
                 <div className="content-exam" style={{ width: width * 0.5, height: height * 0.7 }} >
