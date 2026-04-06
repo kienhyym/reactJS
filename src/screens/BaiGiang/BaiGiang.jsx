@@ -9,6 +9,7 @@ import "./BaiGiang.css";
 import { getLectureDetailAndOpenlectures } from "../../api/Lesson";
 import { useNavigate, useParams } from "react-router-dom";
 import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
+import HeaderRight from "./HeaderRight";
 const BaiGiang = () => {
     const { id } = useParams();
     const { width, height } = useWindowSize();
@@ -125,7 +126,9 @@ const BaiGiang = () => {
                 </div>
             </div>
             <div className="lecture-right" style={{ width: width * 0.2, height: height * 0.88, backgroundImage: `url(${bgcontent})`, backgroundSize: "cover", backgroundPosition: "left" }}>
-                <img className="list-lecture-header" src={`/image/header-lectures.png`} alt="header" />
+                
+                {/* <img className="list-lecture-header" src={`/image/header-lectures.png`} alt="header" /> */}
+               <HeaderRight/>
                 <div className="lecture-right-container" style={{height: height * 0.77}}>
                     {datalessonList?.map((itemlc, indexlc) => {
                         return (

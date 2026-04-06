@@ -6,6 +6,14 @@
     z-index: 10;
 }
 
+.list-lecture-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+
 .header h3 {
     position: absolute;
     top: 45%;
@@ -157,12 +165,12 @@
         #FFFFFF;
 }
 
-.list-lecture{
+.list-lecture {
     width: 100%;
 
 }
 
-.lecture-right-container{
+.lecture-right-container {
     width: 100%;
     overflow: hidden;
     overflow-y: auto;
@@ -241,5 +249,5 @@
     top: -14%;
     left: 5%;
     z-index: 0;
-    width: 90% 
+    width: 90%
 }
