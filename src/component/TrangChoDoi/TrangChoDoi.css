@@ -1,4 +1,4 @@
-.loading-container {
+.loading-box {
   position: fixed;
   inset: 0;
   display: flex;
@@ -9,15 +9,17 @@
   z-index: 9999;
 }
 
-.loading-content {
+.loading-box-content {
   display: flex;
   /* flex-direction: column; */
 }
 
 /* atom animation */
 
-.atom-loader {
+.loading-box-atom-loader {
   /* margin: auto; */
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -31,34 +33,5 @@
   to {
     transform: rotate(360deg);
   }
-
-}
-
-/* text */
-
-.loading-content h2 {
-
-  color: #333;
-
-  margin-bottom: 10px;
-}
-
-.loading-content p {
-
-  color: #666;
-}
-
-
-.page-title {
-
-  font-weight: 700;
-
-  -webkit-text-fill-color: transparent;
-
-  margin-bottom: 40px;
-}
-
-.loading-content h1 {
-  font-size: 32px;
 
 }

@@ -8,35 +8,31 @@ const TrangChoDoi = ({ title, style }) => {
     const [showSlowText, setShowSlowText] = useState(false);
     const { width, height } = useWindowSize();
 
-    useEffect(() => {
-        let timer;
-        if (auth.loading) {
-            timer = setTimeout(() => {
-                setShowSlowText(true);
-            }, 10000); 
+    // useEffect(() => {
+    //     let timer;
+    //     if (auth.loading) {
+    //         timer = setTimeout(() => {
+    //             setShowSlowText(true);
+    //         }, 1000);
 
-        } else {
-            setShowSlowText(false);
-        }
-        return () => clearTimeout(timer);
-    }, [auth.loading]);
+    //     } else {
+    //         setShowSlowText(false);
+    //     }
+    //     return () => clearTimeout(timer);
+    // }, [auth.loading]);
     return (
-        <div className="loading-container" >
+        <div className="loading-box" >
 
-            <div className="loading-content" style={{paddingTop:height*0.25}}>
-                <div className="atom-loader">
-                    <img src="https://pub-b41d67fcb1994c9c810548e1c974a2ff.r2.dev/atom_animation.gif" style={{ height: width *0.09 }}></img>
+            <div className="loading-box-content" style={{ paddingTop: height * 0.25 }}>
+                <div className="loading-box-atom-loader">
+                    <img src="https://pub-b41d67fcb1994c9c810548e1c974a2ff.r2.dev/atom_animation.gif" style={{ height: width * 0.09 }}></img>
+                    {/* {showSlowText &&
+                        <>
+                            <p>Đang khởi động server sẽ mất chút thời gian ⏳</p>
+                            <p>Quá trình này có thể mất ~30s</p>
+                        </>
+                    } */}
                 </div>
-
-                {showSlowText &&
-                    <>
-                        <p>Đang khởi động server sẽ mất chút thời gian ⏳</p>
-                        {/* <p>Xin lỗi vì xự bất tiện này</p>
-                        <p>(⁎˃ᆺ˂)</p> */}
-                        <p>Quá trình này có thể mất ~30s</p>
-                    </>
-                }
-
 
 
             </div>

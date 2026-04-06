@@ -22,84 +22,47 @@ import TongHop from './screens/TongHop/TongHop.jsx'
 import DeThi from './screens/DeThi/DeThi.jsx'
 import BaiGiang from './screens/BaiGiang/BaiGiang.jsx'
 import LamBai from './screens/LamBai/LamBai.jsx'
-import isMobile from './util/usePlatform.js'
 
+const checkMobile = () => {
+  return window.innerWidth < 768 ||
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
+const isMobile = checkMobile();
+console.log("🚀 ~ isMobile:", isMobile)
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: isMobile ? <TrangChu /> : <App />,
-    children: [
-      {
-        index: true,
-        element: <HomePage />
-      },
-      {
-        path: 'user',
-        element: <UserPage />
-      },
-      {
-        path: 'quiz',
-        element: <QuestionListChapterPage />
-      },
-      {
-        path: 'quiz/:lessonId',
-        element: <QuizPage />
-      },
-      {
-        path: 'lessons',
-        element: <LessonListChapter />
-      },
-      {
-        path: 'lessons/:id',   // ✅ dynamic route
-        element: <LessonDetail />
-      },
-
-      {
-        path: "knowledge",
-        element: <KnowledgePage />
-      },
-
-      {
-        path: "extend",
-        element: <ExtendPage />
-      },
-
+const router = createBrowserRouter(
+  !isMobile
+    ? [
+      // 💻 DESKTOP ROUTES
+      { path: "/", element: <TrangChu /> },
+      { path: "/trangchu", element: <TrangChu /> },
+      { path: "/morong", element: <MoRong /> },
+      { path: "/tonghop", element: <TongHop /> },
+      { path: "/dethi", element: <DeThi /> },
+      { path: "/baigiang/:id", element: <BaiGiang /> },
+      { path: "/lambai/:lessonId", element: <LamBai /> },
+      { path: "*", element: <TrangChu /> }
     ]
-  },
-  {
-    path: "trangchu",
-    element: <TrangChu />
-  },
-  {
-    path: "morong",
-    element: <MoRong />
-  },
-  {
-    path: "tonghop",
-    element: <TongHop />
-  },
-  {
-    path: "dethi",
-    element: <DeThi />
-  },
-  {
-    path: "baigiang/:id",
-    element: <BaiGiang />
-  },
-  {
-    path: 'lambai/:lessonId',
-    element: <LamBai />
-  },
-  {
-    path: 'register',
-    element: <RegisterPage />
-  },
-  {
-    path: 'login',
-    element: <LoginPage />
-  },
-]);
+    : [
+      // 📱 MOBILE ROUTES
+      {
+        path: "/",
+        element: <App />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: "user", element: <UserPage /> },
+          { path: "quiz", element: <QuestionListChapterPage /> },
+          { path: "quiz/:lessonId", element: <QuizPage /> },
+          { path: "lessons", element: <LessonListChapter /> },
+          { path: "lessons/:id", element: <LessonDetail /> },
+          { path: "knowledge", element: <KnowledgePage /> },
+          { path: "extend", element: <ExtendPage /> },
+        ],
+      },
+      // fallback
+      { path: "*", element: <HomePage /> }
+    ]
+);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

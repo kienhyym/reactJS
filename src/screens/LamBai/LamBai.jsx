@@ -48,7 +48,6 @@ const LamBai = () => {
 
       if (res) {
         setQuestions(res.questions);
-        console.warn("🚀 ~ getData ~ res.questions:", res.questions)
         setQuestionTitle(res.lectureTitle);
         setExamTitle(res.examTitle);
         setTime(res.examTime);

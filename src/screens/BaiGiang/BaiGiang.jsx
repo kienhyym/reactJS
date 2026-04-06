@@ -129,14 +129,14 @@ const BaiGiang = () => {
                 <div className="lecture-right-container" style={{height: height * 0.77}}>
                     {datalessonList?.map((itemlc, indexlc) => {
                         return (
-                            <div className="list-lecture">
+                            <div className="list-lecture" key={itemlc._id}>
                                 <div className="list-lecture-chapter" >
                                     <img src={`/image/lecture-chapter-${indexlc + 1}.png`} alt="header" style={{ width: '100%' }} />
                                     <b style={{ fontSize: width * 0.008 }}>{itemlc.title} {itemlc.name}</b>
                                 </div>
                                 {itemlc?.lectures?.map((itemlecture, indexlecture) => {
                                     return (
-                                        <div className="list-lecture-video-item" style={id === itemlecture._id ? { transform: "translateX(-4%)" } : {}} onClick={() => navigate(`/baigiang/${itemlecture._id}`)}>
+                                        <div key={itemlecture._id} className="list-lecture-video-item" style={id === itemlecture._id ? { transform: "translateX(-4%)" } : {}} onClick={() => navigate(`/baigiang/${itemlecture._id}`)}>
                                             <img src={`/image/lecture-video-${indexlecture + 1}.png`} alt="header" style={{ width: '100%' }} />
                                             <b style={{ fontSize: width * 0.008 }}>{itemlecture.title}</b>
                                             {

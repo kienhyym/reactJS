@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
 const usePlatform = () => {
-  const [isMobile, setIsMobile] = useState(
-    window.innerWidth < 768 ||
-    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-  );
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
@@ -14,7 +11,9 @@ const usePlatform = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+  console.log("🚀 ~ usePlatform ~ isMobile:", isMobile)
 
-  return isMobile
+  return { isMobile };
 };
+
 export default usePlatform;
