@@ -22,7 +22,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     font-weight: bold;
-    
+
 }
 
 .count {
@@ -160,44 +160,70 @@
 
 .quiz-modal-content {
     position: relative;
+    aspect-ratio: 1314 / 839;
+    width: 30%;
 }
 
 .quiz-modal-content-name {
     position: absolute;
-    top: 46.5%;
-    left: 34%;
-    right: 28%;
+    width: 50%;
+    aspect-ratio: 610 / 79;
+    top: 45%;
+    left: 25%;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.quiz-modal-content-name input {
+    position: absolute;
+    right: 0;
+    width: 75%;
+    background-color: transparent;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
     /* 👈 QUAN TRỌNG NHẤT */
-    background-color: transparent;
-
 }
 
 .quiz-modal-content-class {
     position: absolute;
-    top: 58%;
-    left: 34%;
-    right: 28%;
+    width: 50%;
+    aspect-ratio: 610 / 79;
+    top: 56%;
+    left: 25%;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
+.quiz-modal-content-class input {
+    position: absolute;
+    right: 0;
+    width: 75%;
+    background-color: transparent;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
     /* 👈 QUAN TRỌNG NHẤT */
-    background-color: transparent;
-
 }
 
 .quiz-modal-content-start {
     position: absolute;
     top: 70%;
     left: 25%;
-    right: 25%;
     border: none !important;
     outline: none !important;
     box-shadow: none !important;
-    background-color: transparent;
     /* 👈 QUAN TRỌNG NHẤT */
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    aspect-ratio: 616 / 106
 }
 
 
@@ -282,5 +308,29 @@
 
 /* khi click */
 .quiz-send:active {
+    transform: scale(0.95);
+}
+
+
+
+.clock {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+    opacity: 0.9;
+}
+
+/* hover */
+.clock:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+/* khi click */
+.clock:active {
     transform: scale(0.95);
 }

@@ -19,6 +19,7 @@ const LamBai = () => {
   const { lessonId } = useParams();
   const navigate = useNavigate();
   const { width, height } = useWindowSize();
+  console.log("🚀 ~ LamBai ~ height:", height)
 
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState({});
@@ -285,25 +286,24 @@ const LamBai = () => {
 
       {showModal && (
         <div className="quiz-modal">
-          <div className="quiz-modal-content" style={{ backgroundImage: `url(/image/form-box.png)`, backgroundSize: "cover", backgroundPosition: 'center', width: width * 0.3, height: width * 0.3 / 1314 * 839 }}>
+          <div className="quiz-modal-content" style={{ backgroundImage: `url(/image/form-box.png)`, backgroundSize: "cover", backgroundPosition: 'center' }}>
             <CloseModal onClick={() => navigate(-1)} />
-            <input
-              className="quiz-modal-content-name"
-              style={{ height: width * 0.3 / 1314 * 839 * 0.01 ,fontSize:width*0.01}}
-              placeholder="Tên"
-              onChange={(e) => setStudentInfo({ ...studentInfo, name: e.target.value })}
-            />
-
-            <input
-              className="quiz-modal-content-class"
-              style={{ height: width * 0.3 / 1314 * 839 * 0.01 ,fontSize:width*0.01}}
-              placeholder="Lớp"
-              onChange={(e) => setStudentInfo({ ...studentInfo, class: e.target.value })}
-            />
-
-            <button className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)`, backgroundSize: "cover", backgroundPosition: 'center', width: width * 0.16, height: width * 0.16 / 616 * 106 }}>
-            </button>
-
+            <div className="quiz-modal-content-name" style={{ backgroundImage: `url(/image/input-name.png)` }} >
+              <input
+                style={{ fontSize: width * 0.009 }}
+                placeholder="Tên"
+                onChange={(e) => setStudentInfo({ ...studentInfo, name: e.target.value })}
+              />
+            </div>
+            <div className="quiz-modal-content-class" style={{ backgroundImage: `url(/image/input-name.png)` }} >
+              <input
+                style={{ fontSize: width * 0.009 }}
+                placeholder="Lớp"
+                onChange={(e) => setStudentInfo({ ...studentInfo, class: e.target.value })}
+              />
+            </div>
+            <div className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)`}}>
+            </div>
           </div>
         </div>
       )}
