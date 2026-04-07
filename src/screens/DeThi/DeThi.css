@@ -45,13 +45,6 @@
 }
 
 
-
-
-/* hover card */
-.item-chapter:hover {
-    transform: translateX(-10px);
-}
-
 .content-exam {
     overflow-y: auto;
     scrollbar-width: none;

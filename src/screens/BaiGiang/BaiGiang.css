@@ -13,7 +13,14 @@
     right: 0;
     z-index: 10;
 }
-.list-lecture-undo{
+.list-lecture-back{
+     position: absolute;
+    top: 10%;
+    left:  14%;
+    z-index: 10;
+    width: 3%;
+}
+.list-lecture-home{
      position: absolute;
     top: 10%;
     left:  10%;
@@ -151,14 +158,6 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0 5%;
-}
-
-.lecture-video-tran div:nth-child(1):hover {
-    transform: translateX(-10px);
-}
-
-.lecture-video-tran div:nth-child(2):hover {
-    transform: translateX(+10px);
 }
 
 .lecture-right {

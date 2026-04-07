@@ -68,7 +68,8 @@ const BaiGiang = () => {
 
     return (
         <div className="lecture-container" style={{ paddingTop: width * 0.052, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
-            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo"  onClick={()=>navigate(-1)}/>
+            <img className="list-lecture-home btn" src={`/image/home.png`} alt="home"  onClick={()=>navigate("/trangchu")}/>
+            <img className="list-lecture-back btn" src={`/image/undo.png`} alt="undo"  onClick={()=>navigate(-1)}/>
 
             <div className="lecture-left">
                 <Header title={data?.lecture?.title} />
@@ -87,7 +88,7 @@ const BaiGiang = () => {
                             <b style={{ fontSize: width * 0.01 }}>Phần:</b>
 
                             {data?.videos?.map((video, i) => (
-                                <p
+                                <p  className="btn"
                                     onClick={() => { setIVideo(i) }}
                                     key={video._id}
                                     style={iVideo === i ? { backgroundColor: "burlywood", fontSize: width * 0.008 } : { fontSize: width * 0.008 }}
@@ -111,10 +112,10 @@ const BaiGiang = () => {
                             </div>
                         </div>
                         <div className="lecture-video-tran">
-                            <div onClick={handlePrev} disabled={lessonIndex <= 0} >
+                            <div className="btn" onClick={handlePrev} disabled={lessonIndex <= 0} >
                                 <img src={`/image/video-pre${lessonIndex <= 0 ? '-disable' : ''}.png`} alt="header" style={{ width: width * 0.08 }} />
                             </div>
-                            <div onClick={handleNext} disabled={lessonIndex >= flatLessons.length - 1}>
+                            <div className="btn" onClick={handleNext} disabled={lessonIndex >= flatLessons.length - 1}>
                                 <img src={`/image/video-next${lessonIndex >= flatLessons.length - 1 ? '-disable' : ''}.png`} alt="header" style={{ width: width * 0.08 }} />
                             </div>
                         </div>
@@ -139,7 +140,7 @@ const BaiGiang = () => {
                                 </div>
                                 {itemlc?.lectures?.map((itemlecture, indexlecture) => {
                                     return (
-                                        <div key={itemlecture._id} className="list-lecture-video-item" style={id === itemlecture._id ? { transform: "translateX(-4%)" } : {}} onClick={() => navigate(`/baigiang/${itemlecture._id}`)}>
+                                        <div key={itemlecture._id} className="list-lecture-video-item btn" style={id === itemlecture._id ? { transform: "translateX(-4%)" } : {}} onClick={() => navigate(`/baigiang/${itemlecture._id}`)}>
                                             <img src={`/image/lecture-video-${indexlecture + 1}.png`} alt="header" style={{ width: '100%' }} />
                                             <b style={{ fontSize: width * 0.008 }}>{itemlecture.title}</b>
                                             {

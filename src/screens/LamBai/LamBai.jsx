@@ -173,7 +173,7 @@ const LamBai = () => {
 
   return (
     <div className="container-quiz" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
-      <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
+      <img className="list-lecture-undo btn" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
       <div className="quiz-time-total-fixed">
         <Clock time={formatTime(time)} />
         <Count count={`${Object.keys(answers).length}/${questions.length}`} />

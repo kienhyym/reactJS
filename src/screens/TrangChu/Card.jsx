@@ -3,7 +3,7 @@ import React from "react";
 
 const Card = ({ img, title,onClick }) => {
   return (
-    <div className="card" onClick={onClick}>
+    <div className="card btn" onClick={onClick}>
       <img src={img} alt={title} />
     </div>
   );

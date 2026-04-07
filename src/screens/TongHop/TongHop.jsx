@@ -53,7 +53,7 @@ const TongHop = () => {
     }, [])
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
-            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
+            <img className="list-lecture-undo btn" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
 
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
@@ -62,7 +62,7 @@ const TongHop = () => {
                     {data?.map((item, index) => {
                         const imageIndex = (index % 10) + 1;
                         return (
-                            <div className="item-know"
+                            <div className="item-know btn"
                                 key={index}
                                 onClick={() => setPreviewImage(item)}
                                 style={{
@@ -92,6 +92,7 @@ const TongHop = () => {
 
                 closeIcon={
                     <img
+                    className="btn"
                         src="/image/delete.png"   // 👈 ảnh của bạn
                         alt="close"
                         style={{

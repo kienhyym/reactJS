@@ -72,9 +72,6 @@ body {
     /* Firefox */
 }
 
-.content-extend img:hover {
-    transform: translateX(10px);
-}
 
 .content-extend div p {
     position: absolute;
@@ -82,20 +79,6 @@ body {
     color:brown;
 }
 
-
-/* PERIODIC */
-.periodic {
-    text-align: center;
-    gap: 20px;
-}
-
-.periodic img {
-    width: 80%;
-}
-
-.periodic:hover {
-    transform: translateY(-10px);
-}
 
 .footer {
     position: absolute;

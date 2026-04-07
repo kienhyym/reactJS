@@ -2,9 +2,9 @@ import periodic from "../../../public/image/periodic.png";
 import "./TrangChu.css";
 import React from "react";
 
-const Periodic = () => {
+const Periodic = ({onClick}) => {
   return (
-    <div className="periodic">
+    <div className="periodic btn" onClick={onClick}>
       <img src={periodic} alt="periodic" />
     </div>
   );

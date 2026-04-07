@@ -13,3 +13,24 @@ body {
             #F0FBFF);
 }
 
+.btn {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+    opacity: 0.9;
+}
+
+/* hover */
+.btn:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+/* khi click */
+.btn:active {
+    transform: scale(0.95);
+}

@@ -54,7 +54,7 @@ const DeThi = () => {
     }, [])
     return (
         <div className="container" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
-            <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
+            <img className="list-lecture-undo btn" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
             <div className="home" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
                 <Header />
                 <div className="content-exam" style={{ width: width * 0.5, height: height * 0.7 }} >
@@ -75,7 +75,7 @@ const DeThi = () => {
                                                 item.exams?.map((exam, index) => {
                                                     const imageIndex = (index % 4) + 1;
                                                     return (
-                                                        <div className="item-chapter" key={exam._id} onClick={() => navigate("/lambai/" + exam._id)}>
+                                                        <div className="item-chapter btn" key={exam._id} onClick={() => navigate("/lambai/" + exam._id)}>
                                                             <img src={`/image/exam${imageIndex}.png`} width={"100%"} ></img>
                                                             <p style={{ fontSize: width * 0.01, height: "16%", textTransform: 'uppercase' }}>{exam.titleLecture}</p>
                                                             <span className="lecute-title" style={{ fontSize: width * 0.009, textTransform: 'lowercase' }}>{exam.title}</span>
@@ -95,7 +95,7 @@ const DeThi = () => {
                     })}
                 </div>
                 <img src={table} alt="table" style={{ position: 'absolute', width: width, bottom: -width * 0.09 }} />
-                <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.15, left: - width * 0.16, bottom: -width * 0.04 }} />
+                <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.15, left: - width * 0.1, bottom: -width * 0.04 }} />
                 <img src={thignhiem} alt="thignhiem" style={{ position: 'absolute', width: width * 0.22, right: -width * 0.16, bottom: -width * 0.03 }} />
             </div>
             <Modal

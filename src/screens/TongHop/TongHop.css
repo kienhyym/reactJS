@@ -46,12 +46,6 @@
 }
 
 
-/* hover card */
-.item-know:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
 .content-knowledge {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
