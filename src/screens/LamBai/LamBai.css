@@ -334,3 +334,29 @@
 .clock:active {
     transform: scale(0.95);
 }
+
+.question-image-wrapper {
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.question-image-wrapper img {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.option-content {
+  display: flex;
+  flex-direction: column; /* 👈 ảnh trên, text dưới */
+  gap: 8px;
+}
+
+.option-content img {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  border-radius: 8px;
+}

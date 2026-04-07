@@ -87,7 +87,7 @@ const TrangChu = () => {
                 }
                 onCancel={() => {
                     setOpenModal(false)
-                    handleDoubleClick()
+                  setZoom( 1); // 👈 toggle zoom
                 }
                 }
                 footer={null}

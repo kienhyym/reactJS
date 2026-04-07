@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import "./LamBai.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useNavigate, useParams } from "react-router-dom";
@@ -88,26 +88,27 @@ const LamBai = () => {
   };
 
   // 👉 tính điểm
-  const score = questions.reduce((total, q, i) => {
-    const correct = q.options
-      .map((o, i) => (o.isCorrect ? i : null))
-      .filter(i => i !== null);
+  const score = useMemo(() => {
+    return questions.reduce((total, q, i) => {
+      const correct = q.options
+        .map((o, i) => (o.isCorrect ? i : null))
+        .filter(i => i !== null);
 
-    const user = answers[i];
+      const user = answers[i];
 
-    if (q.type === "single" && user === correct[0]) return total + 1;
+      if (q.type === "single" && user === correct[0]) return total + 1;
 
-    if (q.type === "multiple") {
-      if (!user) return total;
-      if (
-        user.length === correct.length &&
-        user.every(i => correct.includes(i))
-      ) return total + 1;
-    }
+      if (q.type === "multiple") {
+        if (!user) return total;
+        if (
+          user.length === correct.length &&
+          user.every(i => correct.includes(i))
+        ) return total + 1;
+      }
 
-    return total;
-  }, 0);
-
+      return total;
+    }, 0);
+  }, [questions, answers]);
   // 👉 submit
   const submitTheTest = async () => {
     setLoading(true)
@@ -137,23 +138,22 @@ const LamBai = () => {
   useEffect(() => {
     if (!started || submitted) return;
 
-    if (time <= 0) {
-      submitTheTest();
-      return;
-    }
-
     const interval = setInterval(() => {
-      setTime(prev => prev - 1); // 👈 đúng: trừ 1 giây
+      setTime(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          submitTheTest();
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [time, started, submitted]);
+  }, [started, submitted]);
   const formatTime = (seconds) => {
-    if (!seconds) {
-      return "ꝏ/ꝏ"
-    }
-    if (seconds == null) return "";
-
+    if (seconds === 0) return "00:00";
+    if (!seconds) return "∞/∞";
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
 
@@ -185,6 +185,13 @@ const LamBai = () => {
           {q && (
             <div className="question-block">
               <h3>{current + 1}. {q.content}</h3>
+
+              {q?.imageUrl && (
+                <div className="question-image-wrapper">
+                  <img src={q.imageUrl} alt="question" />
+                </div>
+              )}
+                <h4>{q.type === "single" ? "Chọn 1 đáp án đúng" : "Chọn nhiều đáp án đúng"}</h4>
               {q.options.map((opt, i) => (
                 <label key={i} className="option-label">
 
@@ -198,7 +205,12 @@ const LamBai = () => {
                     onChange={() => handleChange(i, q.type)}
                   />
 
-                  <p>{opt.content}</p>
+                  <div className="option-content">
+                    {opt?.imageUrl && (
+                      <img src={opt.imageUrl} alt="option" />
+                    )}
+                    <p>{opt.content}</p>
+                  </div>
                 </label>
               ))}
 
@@ -302,7 +314,7 @@ const LamBai = () => {
                 onChange={(e) => setStudentInfo({ ...studentInfo, class: e.target.value })}
               />
             </div>
-            <div className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)`}}>
+            <div className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)` }}>
             </div>
           </div>
         </div>
