@@ -219,54 +219,54 @@ const LamBai = () => {
         </div>
       )}
       {submitted && (
-        <div className="review-container">
+  <div className="review-container">
 
-          <h2>📋 Xem lại bài làm</h2>
+    <h2>📋 Xem lại bài làm</h2>
 
-          {questions.map((q, qIndex) => {
+    {questions.map((q, qIndex) => {
 
-            const correctIndexes = q.options
-              .map((opt, i) => opt.isCorrect ? i : null)
-              .filter(i => i !== null);
+      const correctIndexes = q.options
+        .map((opt, i) => opt.isCorrect ? i : null)
+        .filter(i => i !== null);
 
-            const userAnswer = answers[qIndex];
+      const userAnswer = answers[qIndex];
+
+      return (
+        <div key={q._id} className="review-question">
+
+          <h3>
+            {qIndex + 1}. {q.content}
+          </h3>
+
+          {q.options.map((opt, optIndex) => {
+
+            const isCorrect = correctIndexes.includes(optIndex);
+
+            const isUserSelected =
+              q.type === "multiple"
+                ? (userAnswer || []).includes(optIndex)
+                : userAnswer === optIndex;
 
             return (
-              <div key={q._id} className="review-question">
-
-                <h3>
-                  {qIndex + 1}. {q.content}
-                </h3>
-
-                {q.options.map((opt, optIndex) => {
-
-                  const isCorrect = correctIndexes.includes(optIndex);
-
-                  const isUserSelected =
-                    q.type === "multiple"
-                      ? (userAnswer || []).includes(optIndex)
-                      : userAnswer === optIndex;
-
-                  return (
-                    <div
-                      key={opt._id}
-                      className={`
+              <div
+                key={opt._id}
+                className={`
                   review-option
                   ${isCorrect ? "correct" : ""}
                   ${isUserSelected && !isCorrect ? "wrong" : ""}
                 `}
-                    >
-                      {opt.content}
-                    </div>
-                  );
-                })}
-
+              >
+                {opt.content}
               </div>
             );
           })}
 
         </div>
-      )}
+      );
+    })}
+
+  </div>
+)}
 
       {/* ===== TIMER ===== */}
       <div className="quiz-footer-fixed">

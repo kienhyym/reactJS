@@ -3,6 +3,51 @@
     z-index: 0;
 }
 
+.clock {
+    position: absolute;
+    z-index: 100;
+    width: 3%;
+}
+
+.clock p {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    right: 3%;
+    display: -webkit-box;
+    z-index: 11;
+    -webkit-line-clamp: 1;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    
+}
+
+.count {
+    position: absolute;
+    z-index: 100;
+    width: 5%;
+}
+
+.count p {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    right: 3%;
+    display: -webkit-box;
+    z-index: 11;
+    -webkit-line-clamp: 1;
+    /* tối đa 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    color: #a05c3d;
+}
+
+
 .list-lecture-undo {
     position: absolute;
     top: 10%;
@@ -126,6 +171,8 @@
     outline: none !important;
     box-shadow: none !important;
     /* 👈 QUAN TRỌNG NHẤT */
+    background-color: transparent;
+
 }
 
 .quiz-modal-content-class {
@@ -137,6 +184,8 @@
     outline: none !important;
     box-shadow: none !important;
     /* 👈 QUAN TRỌNG NHẤT */
+    background-color: transparent;
+
 }
 
 .quiz-modal-content-start {
@@ -151,6 +200,87 @@
     /* 👈 QUAN TRỌNG NHẤT */
 }
 
-.quiz-modal-content-start :focus{
-    
+
+.quiz-modal-content-start {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+}
+
+/* hover */
+.quiz-modal-content-start:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* khi click */
+.quiz-modal-content-start:active {
+    transform: scale(0.95);
+}
+
+.quiz-back {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+}
+
+/* hover */
+.quiz-back:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* khi click */
+.quiz-back:active {
+    transform: scale(0.95);
+}
+
+.quiz-next {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+}
+
+/* hover */
+.quiz-next:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* khi click */
+.quiz-next:active {
+    transform: scale(0.95);
+}
+
+.quiz-send {
+    cursor: pointer;
+    /* 👈 hiện bàn tay */
+    user-select: none;
+    /* 👈 không bị bôi đen text */
+
+    transition: all 0.2s ease;
+    /* 👈 mượt */
+}
+
+/* hover */
+.quiz-send:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* khi click */
+.quiz-send:active {
+    transform: scale(0.95);
 }

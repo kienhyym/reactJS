@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./LamBai.css";
 import { getQuestionsByLecture } from "../../api/Lesson";
 import { useNavigate, useParams } from "react-router-dom";
-import { message, Spin } from "antd";
+import { message } from "antd";
 import { createAchievements } from "../../api/Achievements";
-import { LoadingOutlined } from "@ant-design/icons";
 import { AuthContext } from "../../component/context/authContext";
 import { startApp } from "../../util/apiHeath";
 import TrangChoDoi from "../../component/TrangChoDoi/TrangChoDoi";
@@ -12,6 +11,9 @@ import background from "/image/background.png";
 import useWindowSize from "../../util/useWindowSize";
 import bgcontent from "/image/bg-content.png";
 import Header from "./Header";
+import Clock from "./clock";
+import Count from "./count";
+import CloseModal from "./CloseModal";
 
 const LamBai = () => {
   const { lessonId } = useParams();
@@ -24,7 +26,6 @@ const LamBai = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const [loading, setLoading] = useState(true);
-  const [loadingBtn, setLoadingBtn] = useState(false);
 
   const [questionTitle, setQuestionTitle] = useState("");
   const [examTitle, setExamTitle] = useState("");
@@ -50,7 +51,7 @@ const LamBai = () => {
         setQuestions(res.questions);
         setQuestionTitle(res.lectureTitle);
         setExamTitle(res.examTitle);
-        setTime(res.examTime);
+        setTime(res.examTime * 60); // 👈 convert phút → giây
       }
 
       setLoading(false);
@@ -108,8 +109,7 @@ const LamBai = () => {
 
   // 👉 submit
   const submitTheTest = async () => {
-    setLoadingBtn(true);
-
+    setLoading(true)
     const res = await createAchievements(lessonId, {
       userName: studentInfo.name,
       userClass: studentInfo.class,
@@ -121,7 +121,7 @@ const LamBai = () => {
       setSubmitted(true);
     }
 
-    setLoadingBtn(false);
+    setLoading(false);
   };
 
   const handleSubmit = () => {
@@ -142,21 +142,24 @@ const LamBai = () => {
     }
 
     const interval = setInterval(() => {
-      setTime(prev => prev - 1);
+      setTime(prev => prev - 1); // 👈 đúng: trừ 1 giây
     }, 1000);
 
     return () => clearInterval(interval);
   }, [time, started, submitted]);
-
-  const formatTime = (s) => {
-    if (!s) {
-      return ''
+  const formatTime = (seconds) => {
+    if (!seconds) {
+      return "ꝏ/ꝏ"
     }
-    const m = Math.floor(s / 60);
-    const sec = s % 60;
-    return `${m}:${sec < 10 ? "0" : ""}${sec}`;
-  };
+    if (seconds == null) return "";
 
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+
+    return `${m.toString().padStart(2, "0")}:${s
+      .toString()
+      .padStart(2, "0")}`;
+  };
   const confirmStart = () => {
     if (!studentInfo.name || !studentInfo.class) {
       message.warning("Nhập đủ thông tin");
@@ -170,7 +173,11 @@ const LamBai = () => {
   return (
     <div className="container-quiz" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
       <img className="list-lecture-undo" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
+      <div className="quiz-time-total-fixed">
+        <Clock time={formatTime(time)} />
+        <Count count={`${Object.keys(answers).length}/${questions.length}`} />
 
+      </div>
       <div className="home-quiz" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
         <Header tite={questionTitle} name={examTitle} />
         <div className="content-quiz" style={{ width: width * 0.5, height: height * 0.7 }} >
@@ -199,16 +206,16 @@ const LamBai = () => {
 
           {/* ===== NAVIGATION ===== */}
           <div className="quiz-navigation">
-            <div onClick={() => setCurrent(current - 1)} disabled={current === 0} >
+            <div className="quiz-back" onClick={() => setCurrent(current - 1)} disabled={current === 0} >
               <img src={`/image/quizz-back${current < 1 ? '-disable' : ''}.png`} alt="header" style={{ width: width * 0.08 }} />
             </div>
             {
               current < questions.length - 1 ? (
-                <div onClick={() => setCurrent(current + 1)}>
+                <div className="quiz-next" onClick={() => setCurrent(current + 1)}>
                   <img src={`/image/quizz-next.png`} alt="header" style={{ width: width * 0.08 }} />
                 </div>
               ) : (
-                <div onClick={handleSubmit} >
+                <div className="quiz-send" onClick={handleSubmit} >
                   <img src={`/image/quizz-send.png`} alt="header" style={{ width: width * 0.08 }} />
                 </div>
               )
@@ -275,30 +282,26 @@ const LamBai = () => {
         </div>
       </div>
       {/* ===== TIMER ===== */}
-      <div className="quiz-footer-fixed">
-        <div>📊 {Object.keys(answers).length}/{questions.length}</div>
-        <div>⏱ {formatTime(time)}</div>
-      </div>
+
       {showModal && (
         <div className="quiz-modal">
           <div className="quiz-modal-content" style={{ backgroundImage: `url(/image/form-box.png)`, backgroundSize: "cover", backgroundPosition: 'center', width: width * 0.3, height: width * 0.3 / 1314 * 839 }}>
-
+            <CloseModal onClick={() => navigate(-1)} />
             <input
               className="quiz-modal-content-name"
-              style={{ height: width * 0.3 / 1314 * 839 * 0.01 }}
+              style={{ height: width * 0.3 / 1314 * 839 * 0.01 ,fontSize:width*0.01}}
               placeholder="Tên"
               onChange={(e) => setStudentInfo({ ...studentInfo, name: e.target.value })}
             />
 
             <input
               className="quiz-modal-content-class"
-              style={{ height: width * 0.3 / 1314 * 839 * 0.01 }}
+              style={{ height: width * 0.3 / 1314 * 839 * 0.01 ,fontSize:width*0.01}}
               placeholder="Lớp"
               onChange={(e) => setStudentInfo({ ...studentInfo, class: e.target.value })}
             />
 
-            <button   className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)`, backgroundSize: "cover", backgroundPosition: 'center', width: width * 0.16, height: width * 0.16 / 616 * 106 }}>
-              {loadingBtn && <Spin indicator={<LoadingOutlined spin />} />}
+            <button className="quiz-modal-content-start" onClick={confirmStart} style={{ backgroundImage: `url(/image/start.png)`, backgroundSize: "cover", backgroundPosition: 'center', width: width * 0.16, height: width * 0.16 / 616 * 106 }}>
             </button>
 
           </div>
