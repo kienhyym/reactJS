@@ -169,20 +169,39 @@ const LamBai = () => {
     setShowModal(false);
     setStarted(true);
   };
+  const getOptionStyle = (i) => {
+    if (!q) return {};
 
+    // single
+    if (q.type === "single") {
+      return answers[current] === i
+        ? { backgroundColor: "#ffe4b5" }
+        : {};
+    }
 
+    // multiple
+    if (q.type === "multiple") {
+      return (answers[current] || []).includes(i)
+        ? { backgroundColor: "#ffe4b5" }
+        : {};
+    }
+
+    return {};
+  };
+  const getLabel = (i) => String.fromCharCode(65 + i);
   return (
     <div className="container-quiz" style={{ backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
       <img className="list-lecture-undo btn" src={`/image/undo.png`} alt="undo" onClick={() => navigate(-1)} />
       <div className="quiz-time-total-fixed">
         <Clock time={formatTime(time)} />
         <Count count={`${Object.keys(answers).length}/${questions.length}`} />
-
       </div>
+
       <div className="home-quiz" style={{ marginTop: width * 0.055, height: height * 0.7, width: width * 0.52, backgroundImage: `url(${bgcontent})` }}>
         <Header tite={questionTitle} name={examTitle} />
+
         <div className="content-quiz" style={{ width: width * 0.5, height: height * 0.7 }} >
-          {q && (
+          {q && !submitted && (
             <div className="question-block">
               <h3>{current + 1}. {q.content}</h3>
 
@@ -191,25 +210,50 @@ const LamBai = () => {
                   <img src={q.imageUrl} alt="question" />
                 </div>
               )}
-                <h4>{q.type === "single" ? "Chọn 1 đáp án đúng" : "Chọn nhiều đáp án đúng"}</h4>
+              <h4>{q.type === "single" ? "Chọn 1 đáp án đúng" : "Chọn nhiều đáp án đúng"}</h4>
               {q.options.map((opt, i) => (
-                <label key={i} className="option-label">
+                <label
+                  key={i}
+                  className={`option-label ${q.type === "multiple"
+                    ? (answers[current] || []).includes(i)
+                      ? "active"
+                      : ""
+                    : answers[current] === i
+                      ? "active"
+                      : ""
+                    }`}
+                >
+                  <div className="option-check">
+                    <input
+                      type={q.type === "multiple" ? "checkbox" : "radio"}
+                      checked={
+                        q.type === "multiple"
+                          ? (answers[current] || []).includes(i)
+                          : answers[current] === i
+                      }
+                      onChange={() => handleChange(i, q.type)}
+                    />
+                    {/* 👇 CHỮ A B C */}
+                    <b className={`option-letter ${q.type === "multiple"
+                      ? (answers[current] || []).includes(i)
+                        ? "active"
+                        : ""
+                      : answers[current] === i
+                        ? "active"
+                        : ""
+                      }`}
+                      style={{ fontSize: width * 0.012 }}>
+                      {getLabel(i)}
+                    </b>
+                  </div>
 
-                  <input
-                    type={q.type === "multiple" ? "checkbox" : "radio"}
-                    checked={
-                      q.type === "multiple"
-                        ? (answers[current] || []).includes(i)
-                        : answers[current] === i
-                    }
-                    onChange={() => handleChange(i, q.type)}
-                  />
 
                   <div className="option-content">
+                    <p>{opt.content}</p>
                     {opt?.imageUrl && (
                       <img src={opt.imageUrl} alt="option" />
                     )}
-                    <p>{opt.content}</p>
+
                   </div>
                 </label>
               ))}
@@ -217,34 +261,34 @@ const LamBai = () => {
             </div>
           )}
 
-          {/* ===== NAVIGATION ===== */}
-          <div className="quiz-navigation">
-            <div className="quiz-back" onClick={() => setCurrent(current - 1)} disabled={current === 0} >
-              <img src={`/image/quizz-back${current < 1 ? '-disable' : ''}.png`} alt="header" style={{ width: width * 0.08 }} />
+          {!submitted && (
+            <div className="quiz-navigation">
+              <div className="quiz-back" onClick={() => setCurrent(current - 1)} disabled={current === 0} >
+                <img src={`/image/quizz-back${current < 1 ? '-disable' : ''}.png`} alt="header" style={{ width: width * 0.08 }} />
+              </div>
+              {
+                current < questions.length - 1 ? (
+                  <div className="quiz-next" onClick={() => setCurrent(current + 1)}>
+                    <img src={`/image/quizz-next.png`} alt="header" style={{ width: width * 0.08 }} />
+                  </div>
+                ) : (
+                  <div className="quiz-send" onClick={handleSubmit} >
+                    <img src={`/image/quizz-send.png`} alt="header" style={{ width: width * 0.08 }} />
+                  </div>
+                )
+              }
             </div>
-            {
-              current < questions.length - 1 ? (
-                <div className="quiz-next" onClick={() => setCurrent(current + 1)}>
-                  <img src={`/image/quizz-next.png`} alt="header" style={{ width: width * 0.08 }} />
-                </div>
-              ) : (
-                <div className="quiz-send" onClick={handleSubmit} >
-                  <img src={`/image/quizz-send.png`} alt="header" style={{ width: width * 0.08 }} />
-                </div>
-              )
-            }
-          </div>
-
+          )}
           {/* ===== RESULT ===== */}
           {submitted && (
-            <div className="result-box">
-              🎉 {score}/{questions.length}
+            <div className="result-box" style={{ fontSize: width * 0.012, fontWeight: 'bold' }}>
+              🎉 Bạn đã trả lời: {score}/{questions.length} câu hỏi
             </div>
           )}
           {submitted && (
             <div className="review-container">
 
-              <h2>📋 Xem lại bài làm</h2>
+              <h2 style={{ fontSize: width * 0.013, marginBottom: width * 0.01 }}>📋 Xem lại bài làm</h2>
 
               {questions.map((q, qIndex) => {
 
@@ -257,10 +301,14 @@ const LamBai = () => {
                 return (
                   <div key={q._id} className="review-question">
 
-                    <h3>
+                    <h3 style={{ fontSize: width * 0.011}}>
                       {qIndex + 1}. {q.content}
                     </h3>
-
+                    {q?.imageUrl && (
+                      <div className="question-image-wrapper">
+                        <img src={q.imageUrl} alt="question" />
+                      </div>
+                    )}
                     {q.options.map((opt, optIndex) => {
 
                       const isCorrect = correctIndexes.includes(optIndex);
@@ -279,11 +327,19 @@ const LamBai = () => {
                   ${isUserSelected && !isCorrect ? "wrong" : ""}
                 `}
                         >
-                          {opt.content}
+                          <div className="option-content">
+                            {/* 👇 CHỮ A B C */}
+                            <span className="review-letter" style={{ fontSize: width * 0.01 }}>
+                              {getLabel(optIndex)}
+                            </span>
+                            <p style={{ fontSize: width * 0.01 }}>{opt.content}</p>
+                            {opt?.imageUrl && (
+                              <img src={opt.imageUrl} alt="option" />
+                            )}
+                          </div>
                         </div>
                       );
                     })}
-
                   </div>
                 );
               })}

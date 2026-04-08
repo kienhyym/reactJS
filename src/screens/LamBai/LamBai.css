@@ -115,11 +115,11 @@
 }
 
 .question-block {
-    background: radial-gradient(circle at 20% 20%, #FFE4E1 0%, transparent 40%),
+    /* background: radial-gradient(circle at 20% 20%, #FFE4E1 0%, transparent 40%),
         radial-gradient(circle at 80% 20%, #DCD0FF 0%, transparent 40%),
         radial-gradient(circle at 50% 80%, #B0E0E6 0%, transparent 50%),
-        #FFFFFF;
-
+        #FFFFFF; */
+    background-color: transparent;
 }
 
 .quiz-navigation {
@@ -140,10 +140,13 @@
 }
 
 .review-option {
-    padding: 10px;
-    border-radius: 6px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
 }
 
 /* đáp án đúng */
@@ -324,39 +327,115 @@
     opacity: 0.9;
 }
 
-/* hover */
-.clock:hover {
-    transform: translateY(-2px);
-    opacity: 1;
-}
-
-/* khi click */
-.clock:active {
-    transform: scale(0.95);
-}
 
 .question-image-wrapper {
-  width: 100%;
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
 }
 
 .question-image-wrapper img {
-  max-width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  border-radius: 10px;
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 10px;
 }
+
 .option-content {
-  display: flex;
-  flex-direction: column; /* 👈 ảnh trên, text dưới */
-  gap: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85%;
+    border-radius: 20px;
+    align-items: center;
+}
+
+.option-content p {
+    width: 80%;
 }
 
 .option-content img {
-  max-width: 100%;
-  max-height: 120px;
-  object-fit: contain;
-  border-radius: 8px;
+    width: 20%;
+    aspect-ratio: 16/ 9;
+    object-fit: contain;
+    border-radius: 20px;
+    background-color: transparent;
+}
+
+.option-label {
+    background-color: #fbf2e4;
+    margin-top: 2%;
+    border: 2px solid gray;
+    border-radius: 20px;
+    padding: 1%;
+}
+
+.option-label input {
+    background-color: transparent;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    opacity: 0;
+    width: 10%;
+    height: 10%;
+}
+
+/* .option-label:hover {
+    background-color: #fff;
+} */
+.option-label.active {
+    background-color: #ffe4b5;
+    border: 2px solid orange;
+}
+
+.option-check {
+    width: 15%;
+    aspect-ratio: 2/ 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option-letter {
+    position: absolute;
+    width: 50%;
+    aspect-ratio: 1/ 1;
+    border-radius: 50%;
+    align-content: center;
+    text-align: center;
+    background-color: #b1b1b1;
+    color: #fff;
+    border: 3px solid #fff;
+    outline: 1px solid #585858;
+}
+
+.option-letter.active {
+    background-color: orange;
+    outline: 1px solid orange;
+
+}
+
+.review-letter {
+  min-width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  border: 2px solid #ccc;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.result-box{
+    background-color: green;
+    padding: 2%;
+    width: 50%;
+    margin: 3% auto;
+    color: #fff;
 }
