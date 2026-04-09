@@ -353,6 +353,7 @@
 
 .option-content p {
     width: 80%;
+    text-transform: capitalize;
 }
 
 .option-content img {

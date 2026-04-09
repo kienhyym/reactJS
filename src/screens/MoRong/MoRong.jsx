@@ -66,7 +66,7 @@ const MoRong = () => {
                             rel="noreferrer"
                             ><div   className="btn" style={{ position: "relative" }} >
                                 <img src={`/image/extend-card${imageIndex}.png`} alt="header" style={{ width: width * 0.5, marginTop: 10 }} ></img>
-                                <p style={{ fontSize: width * 0.009, top, left: width * 0.13, textTransform: 'lowercase' }}>{item.title}</p>
+                                <p style={{ fontSize: width * 0.009, top, left: width * 0.13}}>{item.title}</p>
                             </div></a>)
                     })}
                 </div>

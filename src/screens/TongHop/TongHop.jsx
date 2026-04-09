@@ -79,7 +79,7 @@ const TongHop = () => {
                                     <span className="item-label" style={{ fontSize: width * 0.0066 }}><span style={{ fontSize: width * 0.013, color: 'white' }}>◪ </span>Ảnh </span>
                                 }
                                 <img src={`/image/know${imageIndex}.png`} width={"100%"} height={'100%'}></img>
-                                <p style={{ fontSize: width * 0.0066, height: "16%", textTransform: 'lowercase' }}>{item.title}</p>
+                                <p style={{ fontSize: width * 0.0066, height: "16%" }}>{item.title}</p>
                             </div>)
                     })}
                 </div>

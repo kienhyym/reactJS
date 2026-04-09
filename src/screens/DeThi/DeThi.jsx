@@ -68,7 +68,7 @@ const DeThi = () => {
                                     <div className="item-chapters-right">
                                         <div className="item-chapters-right-top">
                                             <img src={`/image/chapter-title.png`} width={"100%"} ></img>
-                                            <p style={{ fontSize: width * 0.01, textTransform: 'uppercase' }}>{item.title}</p>
+                                            <p style={{ fontSize: width * 0.01, textTransform: 'uppercase' }}>{item.title} {item.name && item.name}</p>
                                         </div>
                                         <div className="content-chapter" >
                                             {
@@ -78,7 +78,7 @@ const DeThi = () => {
                                                         <div className="item-chapter btn" key={exam._id} onClick={() => navigate("/lambai/" + exam._id)}>
                                                             <img src={`/image/exam${imageIndex}.png`} width={"100%"} ></img>
                                                             <p style={{ fontSize: width * 0.01, height: "16%", textTransform: 'uppercase' }}>{exam.titleLecture}</p>
-                                                            <span className="lecute-title" style={{ fontSize: width * 0.009, textTransform: 'lowercase' }}>{exam.title}</span>
+                                                            <span className="lecute-title" style={{ fontSize: width * 0.009}}>{exam.title}</span>
                                                             <span className="info-exam">
                                                                 <span style={{ fontSize: width * 0.008 }}>{exam.totalQuestion && `Tổng câu hỏi:${exam.totalQuestion} `}</span>
                                                                 <span>&nbsp;-&nbsp;</span>
