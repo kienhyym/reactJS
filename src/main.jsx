@@ -30,7 +30,6 @@ const checkMobile = () => {
 const isMobile = checkMobile();
 console.log("🚀 ~ isMobile:", isMobile)
 const ui = localStorage.getItem("interface");
-console.log("🚀 ~ ui:", ui === "normally")
 const router = createBrowserRouter(
   !isMobile
     ? ui === "normally"? [

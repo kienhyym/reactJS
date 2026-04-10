@@ -4,7 +4,11 @@ import "./HomePage.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
-
+  const checkMobile = () => {
+    return window.innerWidth < 768 ||
+      /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  };
+  const isMobile = checkMobile();
   return (
     <div className="home-container">
       {/* HERO SECTION */}
@@ -45,13 +49,14 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <span className="btn tooltip tooltipHome " onClick={(() => {
+      {!isMobile && <span className="btn tooltip tooltipHome " onClick={(() => {
         localStorage.setItem("interface", "color");
-         window.location.replace("/")
+        window.location.replace("/")
       })}>
         <p class="tooltip-text">chuyển sang giao diện sắc màu</p>
         <img src="https://pub-b41d67fcb1994c9c810548e1c974a2ff.r2.dev/color-inter.png" alt="home" className="icon-image" />
       </span>
+      }
 
     </div>
   );
