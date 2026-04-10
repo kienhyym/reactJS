@@ -29,10 +29,29 @@ const checkMobile = () => {
 };
 const isMobile = checkMobile();
 console.log("🚀 ~ isMobile:", isMobile)
-
+const ui = localStorage.getItem("interface");
+console.log("🚀 ~ ui:", ui === "normally")
 const router = createBrowserRouter(
   !isMobile
-    ? [
+    ? ui === "normally"? [
+      // 📱 MOBILE ROUTES
+      {
+        path: "/",
+        element: <App />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: "user", element: <UserPage /> },
+          { path: "quiz", element: <QuestionListChapterPage /> },
+          { path: "quiz/:lessonId", element: <QuizPage /> },
+          { path: "lessons", element: <LessonListChapter /> },
+          { path: "lessons/:id", element: <LessonDetail /> },
+          { path: "knowledge", element: <KnowledgePage /> },
+          { path: "extend", element: <ExtendPage /> },
+        ],
+      },
+      // fallback
+      { path: "*", element: <HomePage /> }
+    ]: [
       // 💻 DESKTOP ROUTES
       { path: "/", element: <TrangChu /> },
       { path: "/trangchu", element: <TrangChu /> },
@@ -43,7 +62,7 @@ const router = createBrowserRouter(
       { path: "/lambai/:lessonId", element: <LamBai /> },
       { path: "*", element: <TrangChu /> }
     ]
-    : [
+    :[
       // 📱 MOBILE ROUTES
       {
         path: "/",

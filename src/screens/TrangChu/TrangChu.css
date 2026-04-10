@@ -17,6 +17,16 @@ body {
     height: 100vh;
 }
 
+.container span {
+    position: fixed;
+    bottom: 4%;
+    left: 10px;
+    z-index: 999;
+    width: 3%;
+    aspect-ratio: 2/ 1.2;
+    border-radius: 10px;
+}
+
 .home {
     position: relative;
     display: flex;

@@ -69,8 +69,6 @@ const TrangChu = () => {
                 <img src={book} alt="book" style={{ position: 'absolute', width: width * 0.2, left: - width * 0.13, bottom: -width * 0.04 }} />
                 <img src={glass} alt="glass" style={{ position: 'absolute', width: width * 0.17, right: -width * 0.1, bottom: -width * 0.04 }} />
             </div>
-            const [zoom, setZoom] = useState(1);
-
             <Modal
                 open={openModal}
                 closeIcon={
@@ -87,7 +85,7 @@ const TrangChu = () => {
                 }
                 onCancel={() => {
                     setOpenModal(false)
-                  setZoom( 1); // 👈 toggle zoom
+                    setZoom(1); // 👈 toggle zoom
                 }
                 }
                 footer={null}
@@ -125,6 +123,13 @@ const TrangChu = () => {
             {
                 loading && <TrangChoDoi title="🔬Trang chủ" />
             }
+            <span className="btn tooltip" onClick={(() => {
+                localStorage.setItem("interface", "normally");
+                window.location.replace("/")
+            })}>
+                  <p class="tooltip-text">chuyển sang giao diện cơ bản</p>
+                <img src="/image/chemistry.jpg" alt="home" className="icon-image" /> 
+            </span>
         </div>
     );
 };

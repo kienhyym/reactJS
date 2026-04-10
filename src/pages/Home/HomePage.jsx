@@ -7,7 +7,6 @@ const HomePage = () => {
 
   return (
     <div className="home-container">
-
       {/* HERO SECTION */}
       <div className="hero-section">
         <img src="/image/chemistry.jpg" alt="Chemistry Banner" className="hero-image" />
@@ -46,6 +45,13 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <span className="btn tooltip" onClick={(() => {
+        localStorage.setItem("interface", "color");
+         window.location.replace("/")
+      })}>
+        <p class="tooltip-text">chuyển sang giao diện sắc màu</p>
+        <img src="https://pub-b41d67fcb1994c9c810548e1c974a2ff.r2.dev/color-inter.png" alt="home" className="icon-image" />
+      </span>
 
     </div>
   );
