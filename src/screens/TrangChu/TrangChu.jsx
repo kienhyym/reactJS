@@ -127,7 +127,7 @@ const TrangChu = () => {
                 localStorage.setItem("interface", "normally");
                 window.location.replace("/")
             })}>
-                  <p class="tooltip-text">chuyển sang giao diện cơ bản</p>
+                  <p class="tooltip-text">chuyển sang giao diện thân thiện</p>
                 <img src="/image/chemistry.jpg" alt="home" className="icon-image" /> 
             </span>
         </div>
