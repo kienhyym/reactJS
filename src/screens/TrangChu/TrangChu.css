@@ -17,7 +17,7 @@ body {
     height: 100vh;
 }
 
-.container span {
+.tooltipTrangChu {
     position: fixed;
     bottom: 4%;
     left: 10px;

@@ -123,7 +123,7 @@ const TrangChu = () => {
             {
                 loading && <TrangChoDoi title="🔬Trang chủ" />
             }
-            <span className="btn tooltip" onClick={(() => {
+            <span className="btn tooltip tooltipTrangChu" onClick={(() => {
                 localStorage.setItem("interface", "normally");
                 window.location.replace("/")
             })}>

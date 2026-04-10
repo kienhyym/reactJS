@@ -45,7 +45,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      <span className="btn tooltip" onClick={(() => {
+      <span className="btn tooltip tooltipHome " onClick={(() => {
         localStorage.setItem("interface", "color");
          window.location.replace("/")
       })}>
