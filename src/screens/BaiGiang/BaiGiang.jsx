@@ -44,6 +44,11 @@ const BaiGiang = () => {
         }
         getData();
     }, [id])
+
+    useEffect(() => {
+    setIVideo(0);
+}, [id]);
+
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.load(); // 👈 reload video
@@ -101,7 +106,7 @@ const BaiGiang = () => {
                         {/* VIDEO */}
                         <div className="video-wrapper">
                             <div className="video-container">
-                                <video controls ref={videoRef}>
+                                <video controls ref={videoRef} key={id + "-" + iVideo}>
                                     {data?.videos && data?.videos.length > 0 && (
                                         <source
                                             src={data?.videos[iVideo]?.videoUrl}
