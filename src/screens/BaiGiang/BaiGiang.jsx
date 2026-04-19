@@ -31,6 +31,8 @@ const BaiGiang = () => {
     const { auth, setAtuh } = useContext(AuthContext)
     useEffect(() => {
         const getData = async () => {
+            setData(null);              // 🔥 reset data cũ
+            setDataLessonList([]);      // 🔥 reset list luôn
             setLoading(true)
             const res = await startApp(() => getLectureDetailAndOpenlectures(id), auth, setAtuh)
             if (res) {
@@ -70,7 +72,7 @@ const BaiGiang = () => {
             navigate(`/baigiang/${flatLessons[lessonIndex + 1]._id}`);
         }
     };
-
+const currentVideo = data?.videos?.[iVideo];
     return (
         <div className="lecture-container" style={{ paddingTop: width * 0.052, backgroundImage: `url(${background})`, backgroundSize: "cover", backgroundPosition: 'center', height, width }}>
             <img className="list-lecture-home btn" src={`/image/home.png`} alt="home"  onClick={()=>navigate("/trangchu")}/>
@@ -107,9 +109,9 @@ const BaiGiang = () => {
                         <div className="video-wrapper">
                             <div className="video-container">
                                 <video controls ref={videoRef} key={id + "-" + iVideo}>
-                                    {data?.videos && data?.videos.length > 0 && (
+                                    {currentVideo && (
                                         <source
-                                            src={data?.videos[iVideo]?.videoUrl}
+                                            src={currentVideo.videoUrl}
                                             type="video/mp4"
                                         />
                                     )}
