@@ -57,9 +57,7 @@ const BaiGiang = () => {
         }
     }, [iVideo, id]);
 
-    if (!data) {
-        return <h2 style={{ padding: 40 }}>Không tìm thấy bài học</h2>;
-    }
+    
 
     const handlePrev = () => {
         if (lessonIndex > 0) {
